@@ -22,6 +22,8 @@ ArrayLike（类数组/伪数组）即拥有数组的一部分行为,例如 argum
 - HTMLAllCollection
 - DOMTokenList
 
+<!-- more -->
+
 ## Array-Like to Array
 
 在项目开发中，经常遇到需要把 Array-Like Objects 转为 Array 类型，使之能用数组的一些方法。下面列出几种方法：

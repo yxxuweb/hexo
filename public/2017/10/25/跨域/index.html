@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="Yxxu&#39;s Blog">
 <meta property="og:description" content="JavaScript跨域总结与解决办法 什么是跨域 document.domain+iframe的设置 动态创建script 利用iframe和location.hash window.name实现的跨域数据传输 使用HTML5 postMessage 利用flash  什么是跨域JavaScript出于安全方面的考虑，不允许跨域调用其他页面的对象。但在安全限制的同时也给注入iframe或是aja">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-25T13:44:09.559Z">
+<meta property="og:updated_time" content="2017-10-25T13:54:01.900Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域">
 <meta name="twitter:description" content="JavaScript跨域总结与解决办法 什么是跨域 document.domain+iframe的设置 动态创建script 利用iframe和location.hash window.name实现的跨域数据传输 使用HTML5 postMessage 利用flash  什么是跨域JavaScript出于安全方面的考虑，不允许跨域调用其他页面的对象。但在安全限制的同时也给注入iframe或是aja">
@@ -533,7 +533,7 @@
 </tr>
 </tbody>
 </table>
-<!--  -->
+<a id="more"></a>
 <p>特别注意两点：<br>第一，如果是协议和端口造成的跨域问题“前台”是无能为力的，<br>第二：在跨域问题上，域仅仅是通过“URL的首部”来识别而不会去尝试判断相同的ip地址对应着两个域或两个域是否在同一个ip上。</p>
 <p>“URL的首部”指window.location.protocol +window.location.host，也可以理解为“Domains, protocols and ports must match</p>
 <h5 id="1-document-domain-iframe的设置"><a href="#1-document-domain-iframe的设置" class="headerlink" title="1. document.domain+iframe的设置"></a>1. document.domain+iframe的设置</h5><p>对于主域相同而子域不同的例子，可以通过设置document.domain的办法来解决</p>
