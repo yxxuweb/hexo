@@ -1,8 +1,8 @@
 ---
 title: 读 《深入理解javascript原型和闭包》总结（二）
 date: 2018-04-06 09:43:11
-tags:
-categories:
+tags: javascript
+categories: javascript
 ---
 
 ### 继承

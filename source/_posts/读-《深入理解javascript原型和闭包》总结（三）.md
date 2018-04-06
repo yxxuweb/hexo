@@ -1,8 +1,8 @@
 ---
 title: 读 《深入理解javascript原型和闭包》总结（三）
 date: 2018-04-06 10:58:44
-tags:
-categories:
+tags: javascript
+categories: javascript
 ---
 
 ### 执行上下文栈
