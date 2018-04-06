@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260750319351092.png?raw=true">
 <meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260957500455644.png?raw=true">
 <meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260958057327369.png?raw=true">
-<meta property="og:updated_time" content="2018-04-06T04:00:00.040Z">
+<meta property="og:updated_time" content="2018-04-06T04:59:24.957Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="读 《深入理解javascript原型和闭包》总结（三）">
 <meta name="twitter:description" content="执行上下文栈执行全局代码时，会产生一个执行上下文环境，每次调用函数都又会产生执行上下文环境。当函数调用完成时，这个上下文环境以及其中的数据都会被消除，再重新回到全局上下文环境。处于活动状态的执行上下文环境只有一个 其实这是一个压栈出栈的过程——执行上下文栈  有一种情况，而且是很常用的一种情况，无法做到这样干净利落的说销毁就销毁。这种情况就是伟大的——闭包。要说闭包，咱们还得先从自由变量和作用域说">
@@ -522,7 +522,8 @@
 <p>第一步，现在当前作用域查找a，如果有则获取并结束。如果没有则继续；</p>
 <p>第二步，如果当前作用域是全局作用域，则证明a未定义，结束；否则继续；</p>
 <p>第三步，（不是全局作用域，那就是函数作用域）将创建该函数的作用域作为当前作用域；<br>第四步，跳转到第一步。</p>
-<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p><strong><em>你只需要知道闭包应用的两种情况即可——函数作为返回值，函数作为参数传递</em></strong></p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p><strong><em>闭包是由函数以及创建该函数的词法环境组合而成。这个环境包含了这个闭包创建时所能访问的所有局部变量。</em></strong></p>
+<p><strong><em>你只需要知道闭包应用的两种情况即可——函数作为返回值，函数作为参数传递</em></strong></p>
 <p>第一，函数作为返回值</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> max = <span class="number">10</span></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">bar</span> (<span class="params">x</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (x &gt; max) &#123;</div><div class="line">      <span class="built_in">console</span>.log(x);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> f1 = fn()</div><div class="line"></div><div class="line">f1(<span class="number">15</span>)</div></pre></td></tr></table></figure>
 <p>第二，函数作为参数被传递</p>
