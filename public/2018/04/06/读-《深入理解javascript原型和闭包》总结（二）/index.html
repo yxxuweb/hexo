@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221746370927602.png?raw=true">
 <meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221747371078703.png?raw=true">
 <meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221746583578531.png?raw=true">
-<meta property="og:updated_time" content="2018-04-06T02:58:50.754Z">
+<meta property="og:updated_time" content="2018-04-06T03:57:27.815Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="读 《深入理解javascript原型和闭包》总结（二）">
 <meta name="twitter:description" content="继承JavaScript 中的继承是通过原型链来体现的。 12345678910function Foo() &amp;#123;&amp;#125;var f1 = new Foo();f1.a = 10;Foo.prototype.a = 100;Foo.prototype.b = 200;console.log(f1.a); //10console.log(f1.b); // 200 f1是Foo函数new">
@@ -464,6 +464,7 @@
 <p>由于所有的对象的原型链都会找到Object.prototype，因此所有的对象都会有Object.prototype的方法。这就是所谓的“继承”。</p>
 <p>每个函数都有call，apply方法，都有length，arguments，caller等属性。函数由Function函数创建，因此继承的Function.prototype中的方法。Function.prototype继承自Object.prototype的方法，<code>Function.prototype.__proto__</code>指向Object.prototype</p>
 <p>JavaScript对象属性是可以随时改动的，如果你要添加内置方法的原型属性，最好做一步判断，如果该属性不存在，则添加。如果本来就存在，就没必要再添加了。</p>
+<a id="more"></a>
 <h3 id="执行上下文（一）"><a href="#执行上下文（一）" class="headerlink" title="执行上下文（一）"></a>执行上下文（一）</h3><p>在一段js代码拿过来真正一句一句运行之前，浏览器已经做了一些“准备工作”，其中就包括对变量的声明，而不是赋值。变量赋值是在赋值语句执行的时候进行的，</p>
 <p>第一种情况<br><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221744084828533.png?raw=true" alt="验证"></p>
 <p>第二种情况<br><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221744319354566.png?raw=true" alt=""></p>

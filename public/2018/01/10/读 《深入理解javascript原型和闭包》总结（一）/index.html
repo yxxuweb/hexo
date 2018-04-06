@@ -96,7 +96,7 @@
 <meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181511124714709.png?raw=true">
 <meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181512068463597.png?raw=true">
 <meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181637013624694.png?raw=true">
-<meta property="og:updated_time" content="2018-04-06T01:44:09.160Z">
+<meta property="og:updated_time" content="2018-04-06T03:57:11.348Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="读 《深入理解javascript原型和闭包》总结（一）">
 <meta name="twitter:description" content="一切都是对象1234567891011121314function show(x) &amp;#123;    console.log(typeof x);    // undefined    console.log(typeof 10);   // number    console.log(typeof &apos;abc&apos;); // string    console.log(typeof true);">
@@ -485,6 +485,7 @@
 <p><strong><em> 判断一个变量是不是对象非常简单。值类型的类型判断用<code>typeof</code>，引用类型的类型判断用<code>instanceof</code>。  </em></strong></p>
 <p>java中的对象是通过<code>new</code>一个<code>class</code>创建的。对于属性、方法、字段都是非常严格的。但是<code>javascript</code>的对象比较随意–数组是对象，函数式对象，对象还是对象。对象里面的一切都是属性（ <strong><em> 方法也是一种属性 </em></strong> ），属性表示为键值对的形式。<strong><em> 对象是属性的集合 </em></strong></p>
 <p>JavaScript中的对象可以任意的扩展属性，没有<code>class</code>的约束。</p>
+<a id="more"></a>
 <hr>
 <h3 id="函数和对象的关系"><a href="#函数和对象的关系" class="headerlink" title="函数和对象的关系"></a>函数和对象的关系</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</div><div class="line"><span class="built_in">console</span>.log(fn <span class="keyword">instanceof</span> <span class="built_in">Object</span>);</div></pre></td></tr></table></figure>
 <p>函数是一种对象，你可以说数组是对象的一种，因为数组就像是对象的一个子集一样。函数和对象关系比较复杂。</p>

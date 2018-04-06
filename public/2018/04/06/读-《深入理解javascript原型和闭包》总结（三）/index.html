@@ -101,7 +101,7 @@
 <meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260750319351092.png?raw=true">
 <meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260957500455644.png?raw=true">
 <meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260958057327369.png?raw=true">
-<meta property="og:updated_time" content="2018-04-06T03:54:45.091Z">
+<meta property="og:updated_time" content="2018-04-06T03:57:48.911Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="读 《深入理解javascript原型和闭包》总结（三）">
 <meta name="twitter:description" content="执行上下文栈执行全局代码时，会产生一个执行上下文环境，每次调用函数都又会产生执行上下文环境。当函数调用完成时，这个上下文环境以及其中的数据都会被消除，再重新回到全局上下文环境。处于活动状态的执行上下文环境只有一个 其实这是一个压栈出栈的过程——执行上下文栈  有一种情况，而且是很常用的一种情况，无法做到这样干净利落的说销毁就销毁。这种情况就是伟大的——闭包。要说闭包，咱们还得先从自由变量和作用域说">
@@ -467,6 +467,7 @@
 <p><strong><em>其实这是一个压栈出栈的过程——执行上下文栈</em></strong></p>
 <p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/232122300768665.png?raw=true" alt=""></p>
 <p>有一种情况，而且是很常用的一种情况，无法做到这样干净利落的说销毁就销毁。这种情况就是伟大的——闭包。<br>要说闭包，咱们还得先从自由变量和作用域说起。</p>
+<a id="more"></a>
 <h3 id="简介【作用域】"><a href="#简介【作用域】" class="headerlink" title="简介【作用域】"></a>简介【作用域】</h3><p>“javascript没有块级作用域”。所谓“块”，就是大括号“｛｝”中间的语句。</p>
 <p><strong><em>javascript除了全局作用域之外，只有函数可以创建的作用域。</em></strong></p>
 <p><strong><em>我们在声明变量时，全局代码要在代码前端声明，函数中要在函数体一开始就声明好。除了这两个地方，其他地方都不要出现变量声明。而且建议用“单var”形式</em></strong></p>
