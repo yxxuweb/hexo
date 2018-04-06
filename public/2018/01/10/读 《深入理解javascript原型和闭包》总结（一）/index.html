@@ -81,18 +81,26 @@
 
 
 
-<meta name="description" content="javascript类数组转化成数组什么是类数组（ArrayLike）？ArrayLike（类数组/伪数组）即拥有数组的一部分行为,例如 arguments, NodeList等！他们拥有length属性，但是却不能用一些数组的方法，如 push，pop等等 常见的ArrayLike有下面的这几个：  Arguments NodeList StyleSheetList HTMLCollection">
+<meta name="description" content="一切都是对象1234567891011121314function show(x) &amp;#123;    console.log(typeof x);    // undefined    console.log(typeof 10);   // number    console.log(typeof &apos;abc&apos;); // string    console.log(typeof true);">
 <meta name="keywords" content="javascript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript类数组(ArrayLike)转化成数组">
-<meta property="og:url" content="http://yoursite.com/2017/10/18/javascript类数组转化成数组/index.html">
+<meta property="og:title" content="读 《深入理解javascript原型和闭包》总结（一）">
+<meta property="og:url" content="http://yoursite.com/2018/01/10/读 《深入理解javascript原型和闭包》总结（一）/index.html">
 <meta property="og:site_name" content="Yxxu&#39;s Blog">
-<meta property="og:description" content="javascript类数组转化成数组什么是类数组（ArrayLike）？ArrayLike（类数组/伪数组）即拥有数组的一部分行为,例如 arguments, NodeList等！他们拥有length属性，但是却不能用一些数组的方法，如 push，pop等等 常见的ArrayLike有下面的这几个：  Arguments NodeList StyleSheetList HTMLCollection">
+<meta property="og:description" content="一切都是对象1234567891011121314function show(x) &amp;#123;    console.log(typeof x);    // undefined    console.log(typeof 10);   // number    console.log(typeof &apos;abc&apos;); // string    console.log(typeof true);">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-25T13:54:10.000Z">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/172121182841896.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/172130097842386.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181509180812624.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181510403153733.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181511124714709.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181512068463597.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181637013624694.png?raw=true">
+<meta property="og:updated_time" content="2018-04-06T01:44:09.160Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javascript类数组(ArrayLike)转化成数组">
-<meta name="twitter:description" content="javascript类数组转化成数组什么是类数组（ArrayLike）？ArrayLike（类数组/伪数组）即拥有数组的一部分行为,例如 arguments, NodeList等！他们拥有length属性，但是却不能用一些数组的方法，如 push，pop等等 常见的ArrayLike有下面的这几个：  Arguments NodeList StyleSheetList HTMLCollection">
+<meta name="twitter:title" content="读 《深入理解javascript原型和闭包》总结（一）">
+<meta name="twitter:description" content="一切都是对象1234567891011121314function show(x) &amp;#123;    console.log(typeof x);    // undefined    console.log(typeof 10);   // number    console.log(typeof &apos;abc&apos;); // string    console.log(typeof true);">
+<meta name="twitter:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/172121182841896.png?raw=true">
 
 
 
@@ -122,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/18/javascript类数组转化成数组/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/10/读 《深入理解javascript原型和闭包》总结（一）/"/>
 
 
 
 
 
-  <title>javascript类数组(ArrayLike)转化成数组 | Yxxu's Blog</title>
+  <title>读 《深入理解javascript原型和闭包》总结（一） | Yxxu's Blog</title>
   
 
 
@@ -383,7 +391,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/18/javascript类数组转化成数组/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/10/读 《深入理解javascript原型和闭包》总结（一）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yxxu">
@@ -400,7 +408,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">javascript类数组(ArrayLike)转化成数组</h1>
+          <h1 class="post-title" itemprop="name headline">读 《深入理解javascript原型和闭包》总结（一）</h1>
         
 
         <div class="post-meta">
@@ -412,8 +420,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-18T21:58:27+08:00">
-                2017-10-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-10T17:52:32+08:00">
+                2018-01-10
               </time>
             
 
@@ -472,40 +480,44 @@
       
 
       
-        <h1 id="javascript类数组转化成数组"><a href="#javascript类数组转化成数组" class="headerlink" title="javascript类数组转化成数组"></a>javascript类数组转化成数组</h1><h2 id="什么是类数组（ArrayLike）？"><a href="#什么是类数组（ArrayLike）？" class="headerlink" title="什么是类数组（ArrayLike）？"></a>什么是类数组（ArrayLike）？</h2><p>ArrayLike（类数组/伪数组）即拥有数组的一部分行为,例如 arguments, NodeList等！他们拥有<strong><em>length</em></strong>属性，但是却不能用一些数组的方法，如 push，pop等等</p>
-<p>常见的ArrayLike有下面的这几个：</p>
-<ul>
-<li>Arguments</li>
-<li>NodeList</li>
-<li>StyleSheetList</li>
-<li>HTMLCollection</li>
-<li>HTMLFormControlsCollection (继承HTMLCollection)</li>
-<li>HTMLOptionsCollection(继承HTMLCollection)</li>
-<li>HTMLAllCollection</li>
-<li>DOMTokenList</li>
-</ul>
-<a id="more"></a>
-<h2 id="Array-Like-to-Array"><a href="#Array-Like-to-Array" class="headerlink" title="Array-Like to Array"></a>Array-Like to Array</h2><p>在项目开发中，经常遇到需要把 Array-Like Objects 转为 Array 类型，使之能用数组的一些方法。下面列出几种方法：</p>
-<ul>
-<li>for循环</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> arr = [];</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = <span class="built_in">arguments</span>.length; i &lt; len; i++)</div><div class="line">  arr[i] = <span class="built_in">arguments</span>[i];</div><div class="line">&#125;</div><div class="line"></div><div class="line">fn(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</div></pre></td></tr></table></figure>
-<ul>
-<li>Array.prototype.slice.call(array-like object)</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> arr = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">fn(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</div></pre></td></tr></table></figure>
-<p>或者可以用 <strong><em>[]</em></strong> 代替 Array.prototype</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> arr = [].slice.call(<span class="built_in">arguments</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">fn(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</div></pre></td></tr></table></figure>
-<p>原理： slice的内部实现</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//slice的内部实现</span></div><div class="line"><span class="built_in">Array</span>.prototype.slice = <span class="function"><span class="keyword">function</span>(<span class="params">start,end</span>)</span>&#123;  </div><div class="line">      <span class="keyword">var</span> result = <span class="keyword">new</span> <span class="built_in">Array</span>();  </div><div class="line">      start = start || <span class="number">0</span>;  </div><div class="line">      end = end || <span class="keyword">this</span>.length; <span class="comment">//this指向调用的对象，当用了call后，能够改变this的指向，也就是指向传进来的对象，这是关键  </span></div><div class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> i = start; i &lt; end; i++)&#123;  </div><div class="line">           result.push(<span class="keyword">this</span>[i]);  </div><div class="line">      &#125;  </div><div class="line">      <span class="keyword">return</span> result;  </div><div class="line"> &#125;</div></pre></td></tr></table></figure>
-<p>兼容 IE8 以下的浏览器</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> toArray = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>)</span>&#123;  </div><div class="line">    <span class="keyword">try</span>&#123;  </div><div class="line">        <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.slice.call(s);  </div><div class="line">    &#125; <span class="keyword">catch</span>(e)&#123;  </div><div class="line">            <span class="keyword">var</span> arr = [];  </div><div class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,len = s.length; i &lt; len; i++)&#123;  </div><div class="line">                <span class="comment">//arr.push(s[i]);  </span></div><div class="line">                 arr[i] = s[i];     <span class="comment">//据说这样比push快</span></div><div class="line">            &#125;  </div><div class="line">             <span class="keyword">return</span> arr;  </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>Array.from()</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"helloworld"</span>;</div><div class="line"><span class="keyword">var</span> arr = <span class="built_in">Array</span>.from(str);</div></pre></td></tr></table></figure>
-<h3 id="Array-Like-to-Array-注意点"><a href="#Array-Like-to-Array-注意点" class="headerlink" title="Array-Like to Array 注意点"></a>Array-Like to Array 注意点</h3><p>arguments 转换成数组的时候经常会把 <strong><em>Array.prototype.slice.call(arguments)</em></strong> 用更短的写法 <strong><em> [].slice.call(arguments)</em></strong></p>
-<p>这个将导致Chrome和Node中使用的V8引擎跳过对其的优化，使其性能相当慢。</p>
+        <h3 id="一切都是对象"><a href="#一切都是对象" class="headerlink" title="一切都是对象"></a>一切都是对象</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">x</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> x);    <span class="comment">// undefined</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="number">10</span>);   <span class="comment">// number</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="string">'abc'</span>); <span class="comment">// string</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">true</span>);  <span class="comment">// boolean</span></div><div class="line"></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;);  <span class="comment">//function</span></div><div class="line"></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> [<span class="number">1</span>, <span class="string">'a'</span>, <span class="literal">true</span>]);  <span class="comment">//object</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> &#123; <span class="attr">a</span>: <span class="number">10</span>, <span class="attr">b</span>: <span class="number">20</span> &#125;);  <span class="comment">//object</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">null</span>);  <span class="comment">//object</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">10</span>));  <span class="comment">//object</span></div><div class="line">&#125;</div><div class="line">show();</div></pre></td></tr></table></figure>
+<p>（undefined, number, string, boolean）属于简单的值类型，不是对象。（函数、数组、对象、null、new Number(10)、）属于引用类型，都是对象。（引用类型都是对象）</p>
+<p><strong><em> 判断一个变量是不是对象非常简单。值类型的类型判断用<code>typeof</code>，引用类型的类型判断用<code>instanceof</code>。  </em></strong></p>
+<p>java中的对象是通过<code>new</code>一个<code>class</code>创建的。对于属性、方法、字段都是非常严格的。但是<code>javascript</code>的对象比较随意–数组是对象，函数式对象，对象还是对象。对象里面的一切都是属性（ <strong><em> 方法也是一种属性 </em></strong> ），属性表示为键值对的形式。<strong><em> 对象是属性的集合 </em></strong></p>
+<p>JavaScript中的对象可以任意的扩展属性，没有<code>class</code>的约束。</p>
+<hr>
+<h3 id="函数和对象的关系"><a href="#函数和对象的关系" class="headerlink" title="函数和对象的关系"></a>函数和对象的关系</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</div><div class="line"><span class="built_in">console</span>.log(fn <span class="keyword">instanceof</span> <span class="built_in">Object</span>);</div></pre></td></tr></table></figure>
+<p>函数是一种对象，你可以说数组是对象的一种，因为数组就像是对象的一个子集一样。函数和对象关系比较复杂。</p>
+<p>通过下面的内容缕一缕</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = <span class="string">'王福朋'</span>;</div><div class="line">    <span class="keyword">this</span>.year = <span class="number">1988</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> fn1 = <span class="keyword">new</span> Fn();</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> (<span class="built_in">Object</span>)); <span class="comment">// function</span></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> (<span class="built_in">Array</span>)); <span class="comment">// function</span></div></pre></td></tr></table></figure>
+<p>通过上述代码，可以得出：<code>对象都是通过函数来创建</code>。</p>
+<h3 id="prototype-原型"><a href="#prototype-原型" class="headerlink" title="prototype 原型"></a>prototype 原型</h3><p><strong><em> 每个函数都有一个属性叫做prototype </em></strong> 。这个prototype的属性值是一个对象（<strong><em>属性的集合，再次强调</em></strong>），默认的只有一个叫做<code>constructor</code>的属性，指向这个函数本身。</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/172121182841896.png?raw=true" alt="prototype"></p>
+<p>Object</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/172130097842386.png?raw=true" alt="Object"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123; &#125;</div><div class="line">   Fn.prototype.name = <span class="string">'王福朋'</span>;</div><div class="line">   Fn.prototype.getYear = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">       <span class="keyword">return</span> <span class="number">1988</span>;</div><div class="line">   &#125;;</div><div class="line"></div><div class="line">   <span class="keyword">var</span> fn = <span class="keyword">new</span> Fn();</div><div class="line">   <span class="built_in">console</span>.log(fn.name);</div><div class="line">   <span class="built_in">console</span>.log(fn.getYear());</div></pre></td></tr></table></figure>
+<p>Fn是一个函数，fn对象是从Fn函数new出来的，这样fn对象就可以调用Fn.prototype中的属性。</p>
+<h3 id="隐式原型"><a href="#隐式原型" class="headerlink" title="隐式原型"></a>隐式原型</h3><p>每个对象都有一个隐藏的属性——<code>__proto__</code>，这个属性引用了创建这个对象的函数的prototype。即：<code>fn.__proto__ === Fn.prototype</code>。这里的<code>__proto__</code>成为“隐式原型”</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181509180812624.png?raw=true" alt="__proto__"></p>
+<blockquote>
+<p>总结：每个函数function都有一个prototype，即原型。每个对象都有一个<code>__proto__</code>，可成为隐式原型。特殊：Object.prototype是一个特例——它的<strong>proto</strong>指向的是null，切记切记</p>
+</blockquote>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181510403153733.png?raw=true" alt="Object.prototype"></p>
+<p>谁创建了函数？看下面的内容</p>
+<p>函数也是对象，它也有<code>__proto__</code>。函数是被 Function 创建出来的。 —- 这里的 “F” 是大写</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181511124714709.png?raw=true" alt="Function"></p>
+<p>以上代码中，第一种方式是比较传统的函数创建方式，第二种是用new Functoin创建。</p>
+<p>总结：自定义函数<code>Foo.__proto__</code>指向<code>Function.prototype</code>，<code>Object.__proto__</code>指向<code>Function.prototype</code></p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181512068463597.png?raw=true" alt="总结"></p>
+<blockquote>
+<p>注意点：<code>Object.__proto__</code>指向<code>Function.prototype</code>，<code>Function.prototype</code>指向的对象，它的<code>__proto__</code>指向 <code>Object.prototype</code>。因为<code>Function.prototype</code>指向的对象也是一个普通的被<code>Object</code>创建的对象，所以也遵循基本的规则。</p>
+</blockquote>
+<h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><p><strong><em> instanceof判断规则 </em></strong></p>
+<p>Instanceof运算符的第一个变量是一个对象，暂时称为A；第二个变量一般是一个函数，暂时称为B。</p>
+<p>Instanceof的判断队则是：<strong><em>沿着A的<strong>proto</strong>这条线来找，同时沿着B的prototype这条线来找，如果两条线能找到同一个引用，即同一个对象，那么就返回true。如果找到终点还未重合，则返回false</em></strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span> <span class="keyword">instanceof</span> <span class="built_in">Function</span>); <span class="comment">// true</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">// true</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.console.log(<span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Function</span>);</div></pre></td></tr></table></figure>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181637013624694.png?raw=true" alt="instanceof"></p>
+<p>instanceof表示的就是一种继承关系，或者原型链的结构。</p>
 
       
     </div>
@@ -536,8 +548,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/16/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2017/10/25/跨域/" rel="next" title="跨域">
+                <i class="fa fa-chevron-left"></i> 跨域
               </a>
             
           </div>
@@ -546,8 +558,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/25/跨域/" rel="prev" title="跨域">
-                跨域 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/06/读-《深入理解javascript原型和闭包》总结（二）/" rel="prev" title="读 《深入理解javascript原型和闭包》总结（二）">
+                读 《深入理解javascript原型和闭包》总结（二） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -715,7 +727,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#javascript类数组转化成数组"><span class="nav-number">1.</span> <span class="nav-text">javascript类数组转化成数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是类数组（ArrayLike）？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是类数组（ArrayLike）？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array-Like-to-Array"><span class="nav-number">1.2.</span> <span class="nav-text">Array-Like to Array</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-Like-to-Array-注意点"><span class="nav-number">1.2.1.</span> <span class="nav-text">Array-Like to Array 注意点</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一切都是对象"><span class="nav-number">1.</span> <span class="nav-text">一切都是对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数和对象的关系"><span class="nav-number">2.</span> <span class="nav-text">函数和对象的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prototype-原型"><span class="nav-number">3.</span> <span class="nav-text">prototype 原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式原型"><span class="nav-number">4.</span> <span class="nav-text">隐式原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#instanceof"><span class="nav-number">5.</span> <span class="nav-text">instanceof</span></a></li></ol></div>
             
 
           </div>

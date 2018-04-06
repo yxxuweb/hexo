@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Yxxu's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="执行上下文栈执行全局代码时，会产生一个执行上下文环境，每次调用函数都又会产生执行上下文环境。当函数调用完成时，这个上下文环境以及其中的数据都会被消除，再重新回到全局上下文环境。处于活动状态的执行上下文环境只有一个 其实这是一个压栈出栈的过程——执行上下文栈  有一种情况，而且是很常用的一种情况，无法做到这样干净利落的说销毁就销毁。这种情况就是伟大的——闭包。要说闭包，咱们还得先从自由变量和作用域说">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读 《深入理解javascript原型和闭包》总结（三）">
+<meta property="og:url" content="http://yoursite.com/2018/04/06/读-《深入理解javascript原型和闭包》总结（三）/index.html">
+<meta property="og:site_name" content="Yxxu&#39;s Blog">
+<meta property="og:description" content="执行上下文栈执行全局代码时，会产生一个执行上下文环境，每次调用函数都又会产生执行上下文环境。当函数调用完成时，这个上下文环境以及其中的数据都会被消除，再重新回到全局上下文环境。处于活动状态的执行上下文环境只有一个 其实这是一个压栈出栈的过程——执行上下文栈  有一种情况，而且是很常用的一种情况，无法做到这样干净利落的说销毁就销毁。这种情况就是伟大的——闭包。要说闭包，咱们还得先从自由变量和作用域说">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/232122300768665.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/241708372951952.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250814158269779.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250814386853995.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250815006238997.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250815248579200.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250815435609914.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250816112012394.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250816269984619.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260749349988764.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260750319351092.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260957500455644.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260958057327369.png?raw=true">
+<meta property="og:updated_time" content="2018-04-06T03:54:45.091Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="读 《深入理解javascript原型和闭包》总结（三）">
+<meta name="twitter:description" content="执行上下文栈执行全局代码时，会产生一个执行上下文环境，每次调用函数都又会产生执行上下文环境。当函数调用完成时，这个上下文环境以及其中的数据都会被消除，再重新回到全局上下文环境。处于活动状态的执行上下文环境只有一个 其实这是一个压栈出栈的过程——执行上下文栈  有一种情况，而且是很常用的一种情况，无法做到这样干净利落的说销毁就销毁。这种情况就是伟大的——闭包。要说闭包，咱们还得先从自由变量和作用域说">
+<meta name="twitter:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/232122300768665.png?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/06/读-《深入理解javascript原型和闭包》总结（三）/"/>
+
+
+
+
+
+  <title>读 《深入理解javascript原型和闭包》总结（三） | Yxxu's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  <div class="bg_content">
+    <canvas id="Mycanvas"></canvas>
+ </div>
+ <script>
+  //定义画布宽高和生成点的个数
+  var WIDTH = window.innerWidth, HEIGHT = window.innerHeight, POINT = 35;
+
+  var canvas = document.getElementById('Mycanvas');
+  canvas.width = WIDTH,
+  canvas.height = HEIGHT;
+  var context = canvas.getContext('2d');
+  context.strokeStyle = 'rgba(0,0,0,0.02)',
+  context.strokeWidth = 1,
+  context.fillStyle = 'rgba(0,0,0,0.05)';
+  var circleArr = [];
+
+  //线条：开始xy坐标，结束xy坐标，线条透明度
+  function Line (x, y, _x, _y, o) {
+    this.beginX = x,
+    this.beginY = y,
+    this.closeX = _x,
+    this.closeY = _y,
+    this.o = o;
+  }
+  //点：圆心xy坐标，半径，每帧移动xy的距离
+  function Circle (x, y, r, moveX, moveY) {
+    this.x = x,
+    this.y = y,
+    this.r = r,
+    this.moveX = moveX,
+    this.moveY = moveY;
+  }
+  //生成max和min之间的随机数
+  function num (max, _min) {
+    var min = arguments[1] || 0;
+    return Math.floor(Math.random()*(max-min+1)+min);
+  }
+  // 绘制原点
+  function drawCricle (cxt, x, y, r, moveX, moveY) {
+    var circle = new Circle(x, y, r, moveX, moveY)
+    cxt.beginPath()
+    cxt.arc(circle.x, circle.y, circle.r, 0, 2*Math.PI)
+    cxt.closePath()
+    cxt.fill();
+    return circle;
+  }
+  //绘制线条
+  function drawLine (cxt, x, y, _x, _y, o) {
+    var line = new Line(x, y, _x, _y, o)
+    cxt.beginPath()
+    cxt.strokeStyle = 'rgba(0,0,0,'+ o +')'
+    cxt.moveTo(line.beginX, line.beginY)
+    cxt.lineTo(line.closeX, line.closeY)
+    cxt.closePath()
+    cxt.stroke();
+
+  }
+  //初始化生成原点
+  function init () {
+    circleArr = [];
+    for (var i = 0; i < POINT; i++) {
+      circleArr.push(drawCricle(context, num(WIDTH), num(HEIGHT), num(15, 2), num(10, -10)/40, num(10, -10)/40));
+    }
+    draw();
+  }
+
+  //每帧绘制
+  function draw () {
+    context.clearRect(0,0,canvas.width, canvas.height);
+    for (var i = 0; i < POINT; i++) {
+      drawCricle(context, circleArr[i].x, circleArr[i].y, circleArr[i].r);
+    }
+    for (var i = 0; i < POINT; i++) {
+      for (var j = 0; j < POINT; j++) {
+        if (i + j < POINT) {
+          var A = Math.abs(circleArr[i+j].x - circleArr[i].x),
+            B = Math.abs(circleArr[i+j].y - circleArr[i].y);
+          var lineLength = Math.sqrt(A*A + B*B);
+          var C = 1/lineLength*7-0.009;
+          var lineOpacity = C > 0.03 ? 0.03 : C;
+          if (lineOpacity > 0) {
+            drawLine(context, circleArr[i].x, circleArr[i].y, circleArr[i+j].x, circleArr[i+j].y, lineOpacity);
+          }
+        }
+      }
+    }
+  }
+
+  //调用执行
+  window.onload = function () {
+    init();
+    setInterval(function () {
+      for (var i = 0; i < POINT; i++) {
+        var cir = circleArr[i];
+        cir.x += cir.moveX;
+        cir.y += cir.moveY;
+        if (cir.x > WIDTH) cir.x = 0;
+        else if (cir.x < 0) cir.x = WIDTH;
+        if (cir.y > HEIGHT) cir.y = 0;
+        else if (cir.y < 0) cir.y = HEIGHT;
+
+      }
+      draw();
+    }, 16);
+  }
+
+</script>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <a href="https://github.com/yxxuweb"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Yxxu's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">To Be a Better Me</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/06/读-《深入理解javascript原型和闭包》总结（三）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yxxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yxxu's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">读 《深入理解javascript原型和闭包》总结（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-06T10:58:44+08:00">
+                2018-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="执行上下文栈"><a href="#执行上下文栈" class="headerlink" title="执行上下文栈"></a>执行上下文栈</h3><p>执行全局代码时，会产生一个执行上下文环境，每次调用函数都又会产生执行上下文环境。当函数调用完成时，这个上下文环境以及其中的数据都会被消除，再重新回到全局上下文环境。处于活动状态的执行上下文环境只有一个</p>
+<p><strong><em>其实这是一个压栈出栈的过程——执行上下文栈</em></strong></p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/232122300768665.png?raw=true" alt=""></p>
+<p>有一种情况，而且是很常用的一种情况，无法做到这样干净利落的说销毁就销毁。这种情况就是伟大的——闭包。<br>要说闭包，咱们还得先从自由变量和作用域说起。</p>
+<h3 id="简介【作用域】"><a href="#简介【作用域】" class="headerlink" title="简介【作用域】"></a>简介【作用域】</h3><p>“javascript没有块级作用域”。所谓“块”，就是大括号“｛｝”中间的语句。</p>
+<p><strong><em>javascript除了全局作用域之外，只有函数可以创建的作用域。</em></strong></p>
+<p><strong><em>我们在声明变量时，全局代码要在代码前端声明，函数中要在函数体一开始就声明好。除了这两个地方，其他地方都不要出现变量声明。而且建议用“单var”形式</em></strong></p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/241708372951952.png?raw=true" alt=""></p>
+<p>全局代码和fn、bar两个函数都会形成一个作用域。而且，<strong><em>作用域有上下级的关系，上下级关系的确定就看函数是在哪个作用域下创建的</em></strong>。例如，fn作用域下创建了bar函数，那么“fn作用域”就是“bar作用域”的上级</p>
+<p><strong><em>作用域最大的用处就是隔离变量，不同作用域下同名变量不会有冲突</em></strong></p>
+<h3 id="【作用域】和【上下文环境】"><a href="#【作用域】和【上下文环境】" class="headerlink" title="【作用域】和【上下文环境】"></a>【作用域】和【上下文环境】</h3><p>除了全局作用域之外，每个函数都会创建自己的作用域，<strong><em>作用域在函数定义时就已经确定了。而不是在函数调用时确定。</em></strong></p>
+<p>第一步，在加载程序时，已经确定了全局上下文环境，并随着程序的执行而对变量就行赋值。</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250814158269779.png?raw=true" alt=""></p>
+<p>第二步，程序执行到第27行，调用fn(10)，此时生成此次调用fn函数时的上下文环境，压栈，并将此上下文环境设置为活动状态</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250814386853995.png?raw=true" alt=""></p>
+<p>第三步，执行到第23行时，调用bar(100)，生成此次调用的上下文环境，压栈，并设置为活动状态。</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250815006238997.png?raw=true" alt=""></p>
+<p>第四步，执行完第23行，bar(100)调用完成。则bar(100)上下文环境被销毁。接着执行第24行，调用bar(200)，则又生成bar(200)的上下文环境，压栈，设置为活动状态</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250815248579200.png?raw=true" alt=""></p>
+<p>第五步，执行完第24行，则bar(200)调用结束，其上下文环境被销毁。此时会回到fn(10)上下文环境，变为活动状态。</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250815435609914.png?raw=true" alt=""></p>
+<p>第六步，执行完第27行代码，fn(10)执行完成之后，fn(10)上下文环境被销毁，全局上下文环境又回到活动状态。</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250816112012394.png?raw=true" alt=""></p>
+<p>最后我们可以把以上这几个图片连接起来看看。</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/250816269984619.png?raw=true" alt=""></p>
+<p><strong><em>作用域只是一个“地盘”，一个抽象的概念，其中没有变量。要通过作用域对应的执行上下文环境来获取变量的值</em></strong>。同一个作用域下，不同的调用会产生不同的执行上下文环境，继而产生不同的变量的值。所以，<strong><em>作用域中变量的值是在执行过程中产生的确定的，而作用域却是在函数创建时就确定了</em></strong>。</p>
+<p><strong><em>如果要查找一个作用域下某个变量的值，就需要找到这个作用域对应的执行上下文环境，再在其中寻找变量的值。</em></strong></p>
+<h3 id="自由变量"><a href="#自由变量" class="headerlink" title="自由变量"></a>自由变量</h3><p>自由变量： 在A作用域中使用的变量x，却没有在A作用域中声明（即在其他作用域中声明的），对于A作用域来说，x就是一个自由变量</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> b = <span class="number">20</span>;</div><div class="line">  <span class="built_in">console</span>.log(x + b); <span class="comment">// 这里的 X 就是一个自由变量</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(x);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">f</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> x = <span class="number">20</span>;</div><div class="line">  (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    fn();   <span class="comment">// 10 , 而不是 20</span></div><div class="line">  &#125;)()</div><div class="line">&#125;</div><div class="line"></div><div class="line">show(fn);</div></pre></td></tr></table></figure>
+<p><strong><em>自由变量要到创建这个函数的那个作用域中取值——是“创建”，而不是“调用”，切记切记</em></strong> — 这就是所谓的“静态作用域”</p>
+<p>作用域的过程</p>
+<p>第一步，现在当前作用域查找a，如果有则获取并结束。如果没有则继续；</p>
+<p>第二步，如果当前作用域是全局作用域，则证明a未定义，结束；否则继续；</p>
+<p>第三步，（不是全局作用域，那就是函数作用域）将创建该函数的作用域作为当前作用域；<br>第四步，跳转到第一步。</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p><strong><em>你只需要知道闭包应用的两种情况即可——函数作为返回值，函数作为参数传递</em></strong></p>
+<p>第一，函数作为返回值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> max = <span class="number">10</span></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">bar</span> (<span class="params">x</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (x &gt; max) &#123;</div><div class="line">      <span class="built_in">console</span>.log(x);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> f1 = fn()</div><div class="line"></div><div class="line">f1(<span class="number">15</span>)</div></pre></td></tr></table></figure>
+<p>第二，函数作为参数被传递</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> max = <span class="number">10</span>,</div><div class="line">    fn = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</div><div class="line">      <span class="keyword">if</span> (x &gt; max) &#123;</div><div class="line">        <span class="built_in">console</span>.log(x);</div><div class="line">      &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">f</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> max = <span class="number">100</span>;</div><div class="line">  f(<span class="number">15</span>);</div><div class="line">&#125;)(fn);</div></pre></td></tr></table></figure>
+<p>函数调用完成之后，其执行上下文环境不会接着被销毁。这就是需要理解闭包的核心内容。</p>
+<p>演示例子：</p>
+<p>第一步，代码执行前生成全局上下文环境，并在执行时对其中的变量进行赋值。此时全局上下文环境是活动状态。</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260749349988764.png?raw=true" alt=""></p>
+<p>第二步，执行第17行代码时，调用fn()，产生fn()执行上下文环境，压栈，并设置为活动状态</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260750319351092.png?raw=true" alt=""></p>
+<p>第三步，执行完第17行，fn()调用完成。按理说应该销毁掉fn()的执行上下文环境，但是这里不能这么做。注意，重点来了：因为执行fn()时，返回的是一个函数。函数的特别之处在于可以创建一个独立的作用域。而正巧合的是，返回的这个函数体中，还有一个自由变量max要引用fn作用域下的fn()上下文环境中的max。因此，这个max不能被销毁，销毁了之后bar函数中的max就找不到值了。</p>
+<p>因此，这里的fn()上下文环境不能被销毁，还依然存在与执行上下文栈中。</p>
+<p>——即，执行到第18行时，全局上下文环境将变为活动状态，但是fn()上下文环境依然会在执行上下文栈中。另外，执行完第18行，全局上下文环境中的max被赋值为100。如下图：</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260957500455644.png?raw=true" alt=""></p>
+<p>第四步，执行到第20行，执行f1(15)，即执行bar(15)，创建bar(15)上下文环境，并将其设置为活动状态。</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/260958057327369.png?raw=true" alt=""></p>
+<p>执行bar(15)时，max是自由变量，需要向创建bar函数的作用域中查找，找到了max的值为10。这个过程在作用域链一节已经讲过。</p>
+<p>这里的重点就在于，创建bar函数是在执行fn()时创建的。fn()早就执行结束了，但是fn()执行上下文环境还存在与栈中，因此bar(15)时，max可以查找到。如果fn()上下文环境销毁了，那么max就找不到了。</p>
+<p>第五步，执行完20行就是上下文环境的销毁过程</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/06/读-《深入理解javascript原型和闭包》总结（二）/" rel="next" title="读 《深入理解javascript原型和闭包》总结（二）">
+                <i class="fa fa-chevron-left"></i> 读 《深入理解javascript原型和闭包》总结（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yxxu</p>
+              <p class="site-description motion-element" itemprop="description">做更好的自己</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yxxuweb" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/u/b8eeeddb2a94" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/xuyi_59e4c0246f93f" target="_blank" title="SegmentFault">
+                    
+                      <i class="fa fa-fw fa-globe"></i>SegmentFault</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/user/58fe1b73b123db6e95a65512" target="_blank" title="掘金">
+                    
+                      <i class="fa fa-fw fa-globe"></i>掘金</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#执行上下文栈"><span class="nav-number">1.</span> <span class="nav-text">执行上下文栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介【作用域】"><span class="nav-number">2.</span> <span class="nav-text">简介【作用域】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【作用域】和【上下文环境】"><span class="nav-number">3.</span> <span class="nav-text">【作用域】和【上下文环境】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自由变量"><span class="nav-number">4.</span> <span class="nav-text">自由变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">5.</span> <span class="nav-text">闭包</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yxxu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
