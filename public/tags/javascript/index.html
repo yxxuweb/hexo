@@ -229,20 +229,20 @@
 
   //调用执行
   window.onload = function () {
-    init();
-    setInterval(function () {
-      for (var i = 0; i < POINT; i++) {
-        var cir = circleArr[i];
-        cir.x += cir.moveX;
-        cir.y += cir.moveY;
-        if (cir.x > WIDTH) cir.x = 0;
-        else if (cir.x < 0) cir.x = WIDTH;
-        if (cir.y > HEIGHT) cir.y = 0;
-        else if (cir.y < 0) cir.y = HEIGHT;
-
-      }
-      draw();
-    }, 16);
+    // init();
+    // setInterval(function () {
+    //   for (var i = 0; i < POINT; i++) {
+    //     var cir = circleArr[i];
+    //     cir.x += cir.moveX;
+    //     cir.y += cir.moveY;
+    //     if (cir.x > WIDTH) cir.x = 0;
+    //     else if (cir.x < 0) cir.x = WIDTH;
+    //     if (cir.y > HEIGHT) cir.y = 0;
+    //     else if (cir.y < 0) cir.y = HEIGHT;
+    //
+    //   }
+    //   draw();
+    // }, 16);
   }
 
 </script>
