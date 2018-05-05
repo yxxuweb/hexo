@@ -5,8 +5,6 @@ tags: javascript
 categories: javascript
 ---
 
-{% asset_img book.jpg JavaScript高级程序设计 %}
-
 花了半个多月的时间，终于又把“JS红宝书”又撸了一遍。
 
 第一次读“JS红宝书”还是**2015**年初学JS的时候，那时候只是把语法部分读了一遍，还有一些浏览器相关知识做了下了解，大概也就读了半本的样子，

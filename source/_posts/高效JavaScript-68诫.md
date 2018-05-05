@@ -5,7 +5,7 @@ tags: javascript
 categories: javascript
 ---
 
-将《编写高质量JavaScript代码的68个有效方法》书中提到的68个方法分享给大家。
+# 将《编写高质量JavaScript代码的68个有效方法》书中提到的68个方法分享给大家。
 
 ### 让自己习惯`JavaScript`
 
