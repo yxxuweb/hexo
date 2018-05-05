@@ -2,16 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2018/04/25/%E9%AB%98%E6%95%88JavaScript-68%E8%AF%AB/</loc>
+    <loc>http://yoursite.com/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/</loc>
     
-    <lastmod>2018-05-05T15:31:50.463Z</lastmod>
+    <lastmod>2018-05-05T15:46:31.532Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/05/05/test/</loc>
+    <loc>http://yoursite.com/2018/05/06/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8Bug/</loc>
     
-    <lastmod>2018-05-05T15:15:16.044Z</lastmod>
+    <lastmod>2018-05-05T15:46:27.201Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/06/Promise%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/</loc>
+    
+    <lastmod>2018-05-05T15:46:16.397Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/05/History-API-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/</loc>
+    
+    <lastmod>2018-05-05T15:44:59.729Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/25/%E9%AB%98%E6%95%88JavaScript-68%E8%AF%AB/</loc>
+    
+    <lastmod>2018-05-05T15:31:50.463Z</lastmod>
     
   </url>
   
