@@ -2,7 +2,7 @@
 title: 高效JavaScript-68诫
 date: 2018-04-25 14:04:04
 tags: javascript
-categories: javascript
+categories: javascript_config.yml 
 ---
 
 # 将《编写高质量JavaScript代码的68个有效方法》书中提到的68个方法分享给大家。

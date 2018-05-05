@@ -34,3 +34,8 @@ twitter:
 google_plus:
 fb_admins:
 fb_app_id:
+
+deploy:
+    type: git
+    repo: git@github.com:yxxuweb/yxxuweb.github.io.git
+    branch: master
