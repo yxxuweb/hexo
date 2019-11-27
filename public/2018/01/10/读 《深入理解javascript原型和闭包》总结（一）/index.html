@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Yxxu's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="一切都是对象1234567891011121314function show(x) &amp;#123;    console.log(typeof x);    // undefined    console.log(typeof 10);   // number    console.log(typeof &apos;abc&apos;); // string    console.log(typeof true);">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读 《深入理解javascript原型和闭包》总结（一）">
+<meta property="og:url" content="http://yoursite.com/2018/01/10/读 《深入理解javascript原型和闭包》总结（一）/index.html">
+<meta property="og:site_name" content="Yxxu&#39;s Blog">
+<meta property="og:description" content="一切都是对象1234567891011121314function show(x) &amp;#123;    console.log(typeof x);    // undefined    console.log(typeof 10);   // number    console.log(typeof &apos;abc&apos;); // string    console.log(typeof true);">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/172121182841896.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/172130097842386.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181509180812624.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181510403153733.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181511124714709.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181512068463597.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181637013624694.png?raw=true">
+<meta property="og:updated_time" content="2018-04-06T03:57:11.348Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="读 《深入理解javascript原型和闭包》总结（一）">
+<meta name="twitter:description" content="一切都是对象1234567891011121314function show(x) &amp;#123;    console.log(typeof x);    // undefined    console.log(typeof 10);   // number    console.log(typeof &apos;abc&apos;); // string    console.log(typeof true);">
+<meta name="twitter:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/172121182841896.png?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/10/读 《深入理解javascript原型和闭包》总结（一）/"/>
+
+
+
+
+
+  <title>读 《深入理解javascript原型和闭包》总结（一） | Yxxu's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  <div class="bg_content">
+    <canvas id="Mycanvas"></canvas>
+ </div>
+ <script>
+  //定义画布宽高和生成点的个数
+  var WIDTH = window.innerWidth, HEIGHT = window.innerHeight, POINT = 35;
+
+  var canvas = document.getElementById('Mycanvas');
+  canvas.width = WIDTH,
+  canvas.height = HEIGHT;
+  var context = canvas.getContext('2d');
+  context.strokeStyle = 'rgba(0,0,0,0.02)',
+  context.strokeWidth = 1,
+  context.fillStyle = 'rgba(0,0,0,0.05)';
+  var circleArr = [];
+
+  //线条：开始xy坐标，结束xy坐标，线条透明度
+  function Line (x, y, _x, _y, o) {
+    this.beginX = x,
+    this.beginY = y,
+    this.closeX = _x,
+    this.closeY = _y,
+    this.o = o;
+  }
+  //点：圆心xy坐标，半径，每帧移动xy的距离
+  function Circle (x, y, r, moveX, moveY) {
+    this.x = x,
+    this.y = y,
+    this.r = r,
+    this.moveX = moveX,
+    this.moveY = moveY;
+  }
+  //生成max和min之间的随机数
+  function num (max, _min) {
+    var min = arguments[1] || 0;
+    return Math.floor(Math.random()*(max-min+1)+min);
+  }
+  // 绘制原点
+  function drawCricle (cxt, x, y, r, moveX, moveY) {
+    var circle = new Circle(x, y, r, moveX, moveY)
+    cxt.beginPath()
+    cxt.arc(circle.x, circle.y, circle.r, 0, 2*Math.PI)
+    cxt.closePath()
+    cxt.fill();
+    return circle;
+  }
+  //绘制线条
+  function drawLine (cxt, x, y, _x, _y, o) {
+    var line = new Line(x, y, _x, _y, o)
+    cxt.beginPath()
+    cxt.strokeStyle = 'rgba(0,0,0,'+ o +')'
+    cxt.moveTo(line.beginX, line.beginY)
+    cxt.lineTo(line.closeX, line.closeY)
+    cxt.closePath()
+    cxt.stroke();
+
+  }
+  //初始化生成原点
+  function init () {
+    circleArr = [];
+    for (var i = 0; i < POINT; i++) {
+      circleArr.push(drawCricle(context, num(WIDTH), num(HEIGHT), num(15, 2), num(10, -10)/40, num(10, -10)/40));
+    }
+    draw();
+  }
+
+  //每帧绘制
+  function draw () {
+    context.clearRect(0,0,canvas.width, canvas.height);
+    for (var i = 0; i < POINT; i++) {
+      drawCricle(context, circleArr[i].x, circleArr[i].y, circleArr[i].r);
+    }
+    for (var i = 0; i < POINT; i++) {
+      for (var j = 0; j < POINT; j++) {
+        if (i + j < POINT) {
+          var A = Math.abs(circleArr[i+j].x - circleArr[i].x),
+            B = Math.abs(circleArr[i+j].y - circleArr[i].y);
+          var lineLength = Math.sqrt(A*A + B*B);
+          var C = 1/lineLength*7-0.009;
+          var lineOpacity = C > 0.03 ? 0.03 : C;
+          if (lineOpacity > 0) {
+            drawLine(context, circleArr[i].x, circleArr[i].y, circleArr[i+j].x, circleArr[i+j].y, lineOpacity);
+          }
+        }
+      }
+    }
+  }
+
+  //调用执行
+  window.onload = function () {
+    // init();
+    // setInterval(function () {
+    //   for (var i = 0; i < POINT; i++) {
+    //     var cir = circleArr[i];
+    //     cir.x += cir.moveX;
+    //     cir.y += cir.moveY;
+    //     if (cir.x > WIDTH) cir.x = 0;
+    //     else if (cir.x < 0) cir.x = WIDTH;
+    //     if (cir.y > HEIGHT) cir.y = 0;
+    //     else if (cir.y < 0) cir.y = HEIGHT;
+    //
+    //   }
+    //   draw();
+    // }, 16);
+  }
+
+</script>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <a href="https://github.com/yxxuweb"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Yxxu's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/10/读 《深入理解javascript原型和闭包》总结（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yxxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yxxu's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">读 《深入理解javascript原型和闭包》总结（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-10T17:52:32+08:00">
+                2018-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一切都是对象"><a href="#一切都是对象" class="headerlink" title="一切都是对象"></a>一切都是对象</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">x</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> x);    <span class="comment">// undefined</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="number">10</span>);   <span class="comment">// number</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="string">'abc'</span>); <span class="comment">// string</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">true</span>);  <span class="comment">// boolean</span></div><div class="line"></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;);  <span class="comment">//function</span></div><div class="line"></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> [<span class="number">1</span>, <span class="string">'a'</span>, <span class="literal">true</span>]);  <span class="comment">//object</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> &#123; <span class="attr">a</span>: <span class="number">10</span>, <span class="attr">b</span>: <span class="number">20</span> &#125;);  <span class="comment">//object</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">null</span>);  <span class="comment">//object</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">10</span>));  <span class="comment">//object</span></div><div class="line">&#125;</div><div class="line">show();</div></pre></td></tr></table></figure>
+<p>（undefined, number, string, boolean）属于简单的值类型，不是对象。（函数、数组、对象、null、new Number(10)、）属于引用类型，都是对象。（引用类型都是对象）</p>
+<p><strong><em> 判断一个变量是不是对象非常简单。值类型的类型判断用<code>typeof</code>，引用类型的类型判断用<code>instanceof</code>。  </em></strong></p>
+<p>java中的对象是通过<code>new</code>一个<code>class</code>创建的。对于属性、方法、字段都是非常严格的。但是<code>javascript</code>的对象比较随意–数组是对象，函数式对象，对象还是对象。对象里面的一切都是属性（ <strong><em> 方法也是一种属性 </em></strong> ），属性表示为键值对的形式。<strong><em> 对象是属性的集合 </em></strong></p>
+<p>JavaScript中的对象可以任意的扩展属性，没有<code>class</code>的约束。</p>
+<a id="more"></a>
+<hr>
+<h3 id="函数和对象的关系"><a href="#函数和对象的关系" class="headerlink" title="函数和对象的关系"></a>函数和对象的关系</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</div><div class="line"><span class="built_in">console</span>.log(fn <span class="keyword">instanceof</span> <span class="built_in">Object</span>);</div></pre></td></tr></table></figure>
+<p>函数是一种对象，你可以说数组是对象的一种，因为数组就像是对象的一个子集一样。函数和对象关系比较复杂。</p>
+<p>通过下面的内容缕一缕</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = <span class="string">'王福朋'</span>;</div><div class="line">    <span class="keyword">this</span>.year = <span class="number">1988</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> fn1 = <span class="keyword">new</span> Fn();</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> (<span class="built_in">Object</span>)); <span class="comment">// function</span></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> (<span class="built_in">Array</span>)); <span class="comment">// function</span></div></pre></td></tr></table></figure>
+<p>通过上述代码，可以得出：<code>对象都是通过函数来创建</code>。</p>
+<h3 id="prototype-原型"><a href="#prototype-原型" class="headerlink" title="prototype 原型"></a>prototype 原型</h3><p><strong><em> 每个函数都有一个属性叫做prototype </em></strong> 。这个prototype的属性值是一个对象（<strong><em>属性的集合，再次强调</em></strong>），默认的只有一个叫做<code>constructor</code>的属性，指向这个函数本身。</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/172121182841896.png?raw=true" alt="prototype"></p>
+<p>Object</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/172130097842386.png?raw=true" alt="Object"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123; &#125;</div><div class="line">   Fn.prototype.name = <span class="string">'王福朋'</span>;</div><div class="line">   Fn.prototype.getYear = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">       <span class="keyword">return</span> <span class="number">1988</span>;</div><div class="line">   &#125;;</div><div class="line"></div><div class="line">   <span class="keyword">var</span> fn = <span class="keyword">new</span> Fn();</div><div class="line">   <span class="built_in">console</span>.log(fn.name);</div><div class="line">   <span class="built_in">console</span>.log(fn.getYear());</div></pre></td></tr></table></figure>
+<p>Fn是一个函数，fn对象是从Fn函数new出来的，这样fn对象就可以调用Fn.prototype中的属性。</p>
+<h3 id="隐式原型"><a href="#隐式原型" class="headerlink" title="隐式原型"></a>隐式原型</h3><p>每个对象都有一个隐藏的属性——<code>__proto__</code>，这个属性引用了创建这个对象的函数的prototype。即：<code>fn.__proto__ === Fn.prototype</code>。这里的<code>__proto__</code>成为“隐式原型”</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181509180812624.png?raw=true" alt="__proto__"></p>
+<blockquote>
+<p>总结：每个函数function都有一个prototype，即原型。每个对象都有一个<code>__proto__</code>，可成为隐式原型。特殊：Object.prototype是一个特例——它的<strong>proto</strong>指向的是null，切记切记</p>
+</blockquote>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181510403153733.png?raw=true" alt="Object.prototype"></p>
+<p>谁创建了函数？看下面的内容</p>
+<p>函数也是对象，它也有<code>__proto__</code>。函数是被 Function 创建出来的。 —- 这里的 “F” 是大写</p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181511124714709.png?raw=true" alt="Function"></p>
+<p>以上代码中，第一种方式是比较传统的函数创建方式，第二种是用new Functoin创建。</p>
+<p>总结：自定义函数<code>Foo.__proto__</code>指向<code>Function.prototype</code>，<code>Object.__proto__</code>指向<code>Function.prototype</code></p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181512068463597.png?raw=true" alt="总结"></p>
+<blockquote>
+<p>注意点：<code>Object.__proto__</code>指向<code>Function.prototype</code>，<code>Function.prototype</code>指向的对象，它的<code>__proto__</code>指向 <code>Object.prototype</code>。因为<code>Function.prototype</code>指向的对象也是一个普通的被<code>Object</code>创建的对象，所以也遵循基本的规则。</p>
+</blockquote>
+<h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><p><strong><em> instanceof判断规则 </em></strong></p>
+<p>Instanceof运算符的第一个变量是一个对象，暂时称为A；第二个变量一般是一个函数，暂时称为B。</p>
+<p>Instanceof的判断队则是：<strong><em>沿着A的<strong>proto</strong>这条线来找，同时沿着B的prototype这条线来找，如果两条线能找到同一个引用，即同一个对象，那么就返回true。如果找到终点还未重合，则返回false</em></strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span> <span class="keyword">instanceof</span> <span class="built_in">Function</span>); <span class="comment">// true</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">// true</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.console.log(<span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Function</span>);</div></pre></td></tr></table></figure>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/181637013624694.png?raw=true" alt="instanceof"></p>
+<p>instanceof表示的就是一种继承关系，或者原型链的结构。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/25/跨域/" rel="next" title="跨域">
+                <i class="fa fa-chevron-left"></i> 跨域
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/06/读-《深入理解javascript原型和闭包》总结（二）/" rel="prev" title="读 《深入理解javascript原型和闭包》总结（二）">
+                读 《深入理解javascript原型和闭包》总结（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Yxxu</p>
+              <p class="site-description motion-element" itemprop="description">To Be a Better Me</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yxxuweb" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/u/b8eeeddb2a94" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/xuyi_59e4c0246f93f" target="_blank" title="SegmentFault">
+                    
+                      <i class="fa fa-fw fa-globe"></i>SegmentFault</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/user/58fe1b73b123db6e95a65512" target="_blank" title="掘金">
+                    
+                      <i class="fa fa-fw fa-globe"></i>掘金</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一切都是对象"><span class="nav-number">1.</span> <span class="nav-text">一切都是对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数和对象的关系"><span class="nav-number">2.</span> <span class="nav-text">函数和对象的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prototype-原型"><span class="nav-number">3.</span> <span class="nav-text">prototype 原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式原型"><span class="nav-number">4.</span> <span class="nav-text">隐式原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#instanceof"><span class="nav-number">5.</span> <span class="nav-text">instanceof</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yxxu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
