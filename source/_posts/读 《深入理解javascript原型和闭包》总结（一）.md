@@ -13,7 +13,6 @@ function show(x) {
     console.log(typeof 10);   // number
     console.log(typeof 'abc'); // string
     console.log(typeof true);  // boolean
-
     console.log(typeof function () {});  //function
 
     console.log(typeof [1, 'a', true]);  //object
