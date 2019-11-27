@@ -1,7 +1,11 @@
 ---
 title: Promise深入理解
 date: 2018-05-05 24:48:57
+<<<<<<< HEAD
 tags: javascript
+=======
+tags: JavaScript
+>>>>>>> 327c13fb1419c2af9b45bd03afc468a43fa1ac3c
 ---
 
 ## 什么是**Promise**
