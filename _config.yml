@@ -79,6 +79,6 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:yxxuweb/yxxuweb.github.io.git
+  repo: https://github.com/yxxuweb/yxxuweb.github.io.git
   branch: master
 
