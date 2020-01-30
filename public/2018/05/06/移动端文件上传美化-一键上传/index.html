@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>移动端文件上传美化&amp;一键上传 | Yxxu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近项目中文件系统需要适配移动端，发现很多PC端的交互在移动端显得很累赘。 下面就改造一下文件上传，让它变得更加适合移动端。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端文件上传美化&amp;一键上传">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/index.html">
+<meta property="og:site_name" content="Yxxu&#39;s Blog">
+<meta property="og:description" content="最近项目中文件系统需要适配移动端，发现很多PC端的交互在移动端显得很累赘。 下面就改造一下文件上传，让它变得更加适合移动端。">
+<meta property="article:published_time" content="2018-05-05T16:48:57.000Z">
+<meta property="article:modified_time" content="2019-11-27T08:11:17.996Z">
+<meta property="article:author" content="Yxxu">
+<meta property="article:tag" content="H5">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Yxxu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Yxxu&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-移动端文件上传美化-一键上传" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/" class="article-date">
+  <time datetime="2018-05-05T16:48:57.000Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端文件上传美化&amp;一键上传
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近项目中文件系统需要适配移动端，发现很多PC端的交互在移动端显得很累赘。</p>
+<p>下面就改造一下<strong>文件上传</strong>，让它变得更加适合移动端。</p>
+<a id="more"></a>
+<h3 id="PC端实现方案"><a href="#PC端实现方案" class="headerlink" title="PC端实现方案"></a>PC端实现方案</h3><p>就拿上传文件来说，之前在移动端是<strong>点击上传icon</strong>，弹出一个对话框选择文件，然后通过对话框的按钮进行上传。</p>
+
+<p>分解起来就是，选择文件和上传文件，其实是两步。但是在移动端，我们点击<code>input[file]</code>会调用原生的文件系统(iOS是选择照片/拍照上传)，<br>百度云的做法是在调用原生的文件系统，选择完要上传的文件，无需用户点击<strong>上传</strong>按钮直接上传。现在我们来学习下百度云的做法。</p>
+<h3 id="美化input控件"><a href="#美化input控件" class="headerlink" title="美化input控件"></a>美化input控件</h3><p>在没有使用插件的原生<code>input[file]</code>是很难看的，上面的PC端上传文件是使用了<a href="https://github.com/kartik-v/bootstrap-fileinput" target="_blank" rel="noopener">file-input</a>组件，<br>所以我们自定义样式之后会显得比较好看。</p>
+
+<p>但是在移动端我们不使用弹框效果了，所以<code>input[file]</code>也就没必要美化，直接隐藏就好。通过上传按钮调用<code>input[file]</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; HTML</span><br><span class="line">&lt;span class&#x3D;&quot;upload&quot; onclick&#x3D;&quot;chooseFile()&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;file&quot; accept&#x3D;&quot;*&#x2F;*&quot; name&#x3D;&quot;uploadFile&quot; style&#x3D;&quot;display: none; opacity: 0&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; JS</span><br><span class="line">function chooseFile() &#123;</span><br><span class="line">    var fileObj &#x3D; document.getElementsByName(&#39;uploadFile&#39;)[0];</span><br><span class="line">    fileObj.click();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在上面的代码中，我们使用一个上传icon触发<code>input[file]</code>这样文件就选择完毕了</p>
+<h3 id="一键上传"><a href="#一键上传" class="headerlink" title="一键上传"></a>一键上传</h3><p>现在文件选择完成了，我们发现没有办法<strong>上传文件</strong>了，因为<code>input[file]</code>已经被我们隐藏了。</p>
+<p>让我们来转换一下思维方式，为什么还需要第二步上传操作，我们不能选择完成之后直接上传吗？事实证明百度云就是这么做的。</p>
+<p><code>input[file]</code>也是一个普通的<code>input</code>，那我们就能使用它的<code>change</code>事件，这样就把思路捋顺了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; HTML</span><br><span class="line">&lt;span class&#x3D;&quot;upload&quot; onclick&#x3D;&quot;chooseFile()&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;file&quot; accept&#x3D;&quot;*&#x2F;*&quot; name&#x3D;&quot;uploadFile&quot; onchange&#x3D;&quot;uploadFile()&quot; style&#x3D;&quot;display: none; opacity: 0&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; JS</span><br><span class="line">function chooseFile() &#123;</span><br><span class="line">    var fileObj &#x3D; document.getElementsByName(&#39;uploadFile&#39;)[0];</span><br><span class="line">    fileObj.click();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function uploadFile() &#123;</span><br><span class="line">    var formData &#x3D; new formData();</span><br><span class="line">    var fileObj &#x3D; document.getElementsByName(&#39;uploadFile&#39;)[0].files[0];</span><br><span class="line">    formData.appenf(&#39;file&#39;, fileObj);</span><br><span class="line"></span><br><span class="line">    axios.post(url, formData)</span><br><span class="line">        .then(function (res) &#123;</span><br><span class="line">            &#x2F;&#x2F; success</span><br><span class="line">        &#125;)</span><br><span class="line">        .catch(function () &#123;</span><br><span class="line">            &#x2F;&#x2F; error</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为<code>input[file]</code>添加一个<code>change</code>事件，就能在我们选择完文件，自动调用相关函数进行上传。<br>在这里我没有使用原生的AJAX，我使用的是<a href="https://github.com/mzabriskie/axios" target="_blank" rel="noopener">axios</a>，感兴趣的话可以自行Google。</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>至此，我们就实现了一个简单移动端的上传文件，还有很多不足，会在后续工作中优化。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/" data-id="ck60g95gb00049p1kbblscq5m" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/H5/" rel="tag">H5</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/11/27/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/06/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8Bug/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">微信浏览器Bug</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/H5/" rel="tag">H5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML5-History/" rel="tag">HTML5 History</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E4%BF%A1-input-change/" rel="tag">微信 input change</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/HTML5-History/" style="font-size: 10px;">HTML5 History</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/%E5%BE%AE%E4%BF%A1-input-change/" style="font-size: 10px;">微信 input change</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/">移动端文件上传美化&amp;一键上传</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8Bug/">微信浏览器Bug</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/Promise%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">Promise深入理解</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/05/History-API-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/">History API 使用指北</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Yxxu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>

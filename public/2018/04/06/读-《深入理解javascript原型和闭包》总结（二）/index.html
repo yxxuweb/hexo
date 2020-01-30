@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>读 《深入理解javascript原型和闭包》总结（二） | Yxxu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="继承JavaScript 中的继承是通过原型链来体现的。 12345678910function Foo() &amp;#123;&amp;#125;var f1 &#x3D; new Foo();f1.a &#x3D; 10;Foo.prototype.a &#x3D; 100;Foo.prototype.b &#x3D; 200;console.log(f1.a); &#x2F;&#x2F;10console.log(f1.b); &#x2F;&#x2F; 200 f1是Foo函数new">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读 《深入理解javascript原型和闭包》总结（二）">
+<meta property="og:url" content="http://yoursite.com/2018/04/06/%E8%AF%BB-%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3javascript%E5%8E%9F%E5%9E%8B%E5%92%8C%E9%97%AD%E5%8C%85%E3%80%8B%E6%80%BB%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="Yxxu&#39;s Blog">
+<meta property="og:description" content="继承JavaScript 中的继承是通过原型链来体现的。 12345678910function Foo() &amp;#123;&amp;#125;var f1 &#x3D; new Foo();f1.a &#x3D; 10;Foo.prototype.a &#x3D; 100;Foo.prototype.b &#x3D; 200;console.log(f1.a); &#x2F;&#x2F;10console.log(f1.b); &#x2F;&#x2F; 200 f1是Foo函数new">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221744084828533.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221744319354566.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221745066078791.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221746370927602.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221747371078703.png?raw=true">
+<meta property="og:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221746583578531.png?raw=true">
+<meta property="article:published_time" content="2018-04-06T01:43:11.000Z">
+<meta property="article:modified_time" content="2019-11-27T08:11:17.997Z">
+<meta property="article:author" content="Yxxu">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221744084828533.png?raw=true">
+  
+    <link rel="alternate" href="/atom.xml" title="Yxxu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Yxxu&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-读-《深入理解javascript原型和闭包》总结（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/06/%E8%AF%BB-%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3javascript%E5%8E%9F%E5%9E%8B%E5%92%8C%E9%97%AD%E5%8C%85%E3%80%8B%E6%80%BB%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
+  <time datetime="2018-04-06T01:43:11.000Z" itemprop="datePublished">2018-04-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/javascript/">javascript</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      读 《深入理解javascript原型和闭包》总结（二）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>JavaScript 中的继承是通过原型链来体现的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> f1 = <span class="keyword">new</span> Foo();</span><br><span class="line"></span><br><span class="line">f1.a = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">Foo.prototype.a = <span class="number">100</span>;</span><br><span class="line">Foo.prototype.b = <span class="number">200</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(f1.a); <span class="comment">//10</span></span><br><span class="line"><span class="built_in">console</span>.log(f1.b); <span class="comment">// 200</span></span><br></pre></td></tr></table></figure>
+<p>f1是Foo函数new出来的对象，f1.a是f1对象的基本属性，f1.b是怎么来的呢？——从Foo.prototype得来，因为<code>f1.__proto__</code>指向的是<code>Foo.prototype</code></p>
+<p><strong><em>访问一个对象的属性时，先在基本属性中查找，如果没有，再沿着<code>__proto__</code>这条链向上找，这就是原型链</em></strong></p>
+<p><strong><em>如何区分一个属性到底是基本的还是从原型中找到的 —- hasOwnProperty</em></strong></p>
+<p>由于所有的对象的原型链都会找到Object.prototype，因此所有的对象都会有Object.prototype的方法。这就是所谓的“继承”。</p>
+<p>每个函数都有call，apply方法，都有length，arguments，caller等属性。函数由Function函数创建，因此继承的Function.prototype中的方法。Function.prototype继承自Object.prototype的方法，<code>Function.prototype.__proto__</code>指向Object.prototype</p>
+<p>JavaScript对象属性是可以随时改动的，如果你要添加内置方法的原型属性，最好做一步判断，如果该属性不存在，则添加。如果本来就存在，就没必要再添加了。</p>
+<a id="more"></a>
+<h3 id="执行上下文（一）"><a href="#执行上下文（一）" class="headerlink" title="执行上下文（一）"></a>执行上下文（一）</h3><p>在一段js代码拿过来真正一句一句运行之前，浏览器已经做了一些“准备工作”，其中就包括对变量的声明，而不是赋值。变量赋值是在赋值语句执行的时候进行的，</p>
+<p>第一种情况<br><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221744084828533.png?raw=true" alt="验证"></p>
+<p>第二种情况<br><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221744319354566.png?raw=true" alt=""></p>
+<p>第三种情况，<br><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221745066078791.png?raw=true" alt=""></p>
+<p>第一种情况：只是对变量进行声明（并没有赋值）。</p>
+<p>第二种情况：直接给this赋值。这也是“准备工作”情况要做的事情之一</p>
+<p>第三种情况：需要注意代码注释中的两个名词——“函数表达式”和“函数声明”。虽然两者都很常用，但是这两者在“准备工作”时，却是两种待遇。“函数声明”时我们看到了第二种情况的影子，而“函数表达式”时我们看到了第一种情况的影子。</p>
+<p>在准备工作中完成了哪些任务（<strong><em>重点</em></strong>）</p>
+<hr>
+<ul>
+<li>变量、函数表达式——变量声明，默认赋值为undefined；</li>
+<li>this——赋值；</li>
+<li>函数声明——赋值</li>
+</ul>
+<hr>
+<p><strong><em>这三种数据的准备情况我们称之为“执行上下文”或者“执行上下文环境”。</em></strong></p>
+<p>其实，javascript在执行一个代码段之前，都会进行这些“准备工作”来生成执行上下文。<strong><em>这个“代码段”其实分三种情况——全局代码，函数体，eval代码。</em></strong></p>
+<p>所谓“代码段”就是一段文本形式的代码</p>
+<ol>
+<li>全局代码是一种</li>
+<li>eval代码接受的也是一段文本形式的代码</li>
+<li>函数体是代码段是因为函数在创建时，本质上是 new Function(…) 得来的，其中需要传入一个文本形式的参数作为函数体。</li>
+</ol>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221746370927602.png?raw=true" alt=""></p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221747371078703.png?raw=true" alt=""></p>
+<p><img src="https://github.com/yxxuweb/markdownPhoto/blob/master/markdown/221746583578531.png?raw=true" alt=""></p>
+<h3 id="执行上下文（下）"><a href="#执行上下文（下）" class="headerlink" title="执行上下文（下）"></a>执行上下文（下）</h3><p>执行上下文环境中有如何数据：</p>
+<ul>
+<li>变量、函数表达式——变量声明，默认赋值为undefined；</li>
+<li>this——赋值；</li>
+<li>函数声明——赋值；</li>
+</ul>
+<p>如果在函数中，除了上面的数据之外，还会有其他数据。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(x);</span><br><span class="line">&#125;</span><br><span class="line">fn(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>以上代码展示了在函数体的语句执行之前，arguments变量和函数的参数都已经被赋值。从这里可以看出，<strong><em>函数每被调用一次，都会产生一个新的执行上下文环境。</em></strong> 因为不同的调用可能就会有不同的参数。</p>
+<p>另外一点不同在于，<strong><em>函数在定义的时候（不是调用的时候），就已经确定了函数体内部自由变量的作用域</em></strong></p>
+<p>总结：全局代码的上下文环境数据内容为：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通变量（包括函数表达式），如:var a=10;</td>
+<td>声明(默认赋值为undefined)</td>
+</tr>
+<tr>
+<td>函数声明,如:function fn(){}</td>
+<td>赋值</td>
+</tr>
+<tr>
+<td>this</td>
+<td>赋值</td>
+</tr>
+</tbody>
+</table>
+<p>如果代码段是函数体，在此基础上需要附加：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>参数</td>
+<td>赋值</td>
+</tr>
+<tr>
+<td>arguments</td>
+<td>赋值</td>
+</tr>
+<tr>
+<td>自由变量的取值作用域</td>
+<td>赋值</td>
+</tr>
+</tbody>
+</table>
+<p>给执行上下文环境下一个通俗的定义——<strong><em>在执行代码之前，把将要用到的所有的变量都事先拿出来，有的直接赋值了，有的先用undefined占个空。</em></strong></p>
+<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p><strong><em>在函数中this到底取何值，是在函数真正被调用执行的时候确定的，函数定义的时候确定不了</em></strong><br>因为this的取值是执行上下文环境的一部分，每次调用函数，都会产生一个新的执行上下文环境。</p>
+<h6 id="情况1：-构造函数"><a href="#情况1：-构造函数" class="headerlink" title="情况1： 构造函数"></a>情况1： 构造函数</h6><p>构造函数就是用new对象的函数。所有的函数都可以new一个对象，但是有些函数的定义是为了new一个对象，而有些函数则不是。另外注意，构造函数的函数名第一个字母大写（规则约定）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">'xxx'</span>;</span><br><span class="line">  <span class="keyword">this</span>.year = <span class="number">1991</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f1 = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(f1.name);</span><br><span class="line"><span class="built_in">console</span>.log(f1.year);</span><br></pre></td></tr></table></figure>
+<p>以上代码可以看出，<strong><em>如果函数作为构造函数用，那么其中的this就代表它即将new出来的对象</em></strong></p>
+<p>注意： 上面的情况仅限 new Foo() 的情况，即Foo函数作为构造函数的情况。</p>
+<h6 id="情况2：函数作为对象的一个属性"><a href="#情况2：函数作为对象的一个属性" class="headerlink" title="情况2：函数作为对象的一个属性"></a>情况2：函数作为对象的一个属性</h6><p>如果函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的this指向该对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  x: <span class="number">10</span>,</span><br><span class="line">  fn: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.fn();</span><br></pre></td></tr></table></figure>
+<p>以上代码中，fn不仅作为一个对象的一个属性，而且的确是作为对象的一个属性被调用。结果this就是obj对象</p>
+<h6 id="情况3：函数用call或者apply调用"><a href="#情况3：函数用call或者apply调用" class="headerlink" title="情况3：函数用call或者apply调用"></a>情况3：函数用call或者apply调用</h6><p>当一个函数被call和apply调用时，this的值就取传入的对象的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  x: <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn.call(obj); <span class="comment">// Object &#123;x: 10&#125;  10</span></span><br></pre></td></tr></table></figure>
+<h6 id="情况4：全局-amp-调用普通函数"><a href="#情况4：全局-amp-调用普通函数" class="headerlink" title="情况4：全局 &amp; 调用普通函数"></a>情况4：全局 &amp; 调用普通函数</h6><p>在全局环境下，this永远是window，这个应该没有非议。</p>
+<p>普通函数在调用时，其中的this也都是window</p>
+<p>下面的情况需要注意下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  x: <span class="number">10</span>,</span><br><span class="line">  fn: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);</span><br><span class="line">    &#125;</span><br><span class="line">    f()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.fn();</span><br></pre></td></tr></table></figure></p>
+<p>函数f虽然是在obj.fn内部定义的，但是它仍然是一个普通的函数，this仍然指向window</p>
+<h6 id="补充-—-在构造函数的prototype中，this代表着什么。"><a href="#补充-—-在构造函数的prototype中，this代表着什么。" class="headerlink" title="补充 — 在构造函数的prototype中，this代表着什么。"></a>补充 — 在构造函数的prototype中，this代表着什么。</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">'xxx'</span></span><br><span class="line">  <span class="keyword">this</span>.year = <span class="number">1991</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Fn.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f1 = <span class="keyword">new</span> Fn()</span><br><span class="line">f1.getName();</span><br></pre></td></tr></table></figure>
+<p>如上代码，在Fn.prototype.getName函数中，this指向的是f1对象。因此可以通过this.name获取f1.name的值。</p>
+<p><strong><em>其实，不仅仅是构造函数的prototype，即便是在整个原型链中，this代表的也都是当前对象的值</em></strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/06/%E8%AF%BB-%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3javascript%E5%8E%9F%E5%9E%8B%E5%92%8C%E9%97%AD%E5%8C%85%E3%80%8B%E6%80%BB%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="ck60g95gf000a9p1kbyhqawia" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/06/%E8%AF%BB-%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3javascript%E5%8E%9F%E5%9E%8B%E5%92%8C%E9%97%AD%E5%8C%85%E3%80%8B%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%89%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          读 《深入理解javascript原型和闭包》总结（三）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/01/10/%E8%AF%BB%20%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3javascript%E5%8E%9F%E5%9E%8B%E5%92%8C%E9%97%AD%E5%8C%85%E3%80%8B%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">读 《深入理解javascript原型和闭包》总结（一）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/H5/" rel="tag">H5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML5-History/" rel="tag">HTML5 History</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E4%BF%A1-input-change/" rel="tag">微信 input change</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/HTML5-History/" style="font-size: 10px;">HTML5 History</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/%E5%BE%AE%E4%BF%A1-input-change/" style="font-size: 10px;">微信 input change</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/">移动端文件上传美化&amp;一键上传</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8Bug/">微信浏览器Bug</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/06/Promise%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">Promise深入理解</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/05/History-API-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/">History API 使用指北</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Yxxu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>
