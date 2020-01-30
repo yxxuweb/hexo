@@ -65,54 +65,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Promise深入理解" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/11/27/hello-world/" class="article-date">
-  <time datetime="2019-11-27T08:11:17.995Z" itemprop="datePublished">2019-11-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/27/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/27/hello-world/" data-id="ck60g95fx00009p1kd9fa0xnm" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-移动端文件上传美化-一键上传" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/" class="article-date">
+    <a href="/2018/05/06/Promise%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/" class="article-date">
   <time datetime="2018-05-05T16:48:57.000Z" itemprop="datePublished">2018-05-06</time>
 </a>
     
@@ -124,7 +79,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/">移动端文件上传美化&amp;一键上传</a>
+      <a class="article-title" href="/2018/05/06/Promise%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">Promise深入理解</a>
     </h1>
   
 
@@ -132,20 +87,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近项目中文件系统需要适配移动端，发现很多PC端的交互在移动端显得很累赘。</p>
-<p>下面就改造一下<strong>文件上传</strong>，让它变得更加适合移动端。</p>
+        <h2 id="什么是Promise"><a href="#什么是Promise" class="headerlink" title="什么是Promise"></a>什么是<strong>Promise</strong></h2><p><strong>Promise</strong>的核心理念是一个异步操作的结果，<strong>Promise</strong>包含两部分</p>
+<ul>
+<li><code>[[PromiseStates]]</code></li>
+<li><code>[[PromiseValue]]</code></li>
+</ul>
+<p><strong>Promise</strong>状态三种可能：</p>
+<ul>
+<li><code>pending</code>: 悬而未决</li>
+<li><code>resolved</code>: 决定</li>
+<li><code>rejected</code>: 拒绝</li>
+</ul>
         
           <p class="article-more-link">
-            <a href="/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/#more">Read More</a>
+            <a href="/2018/05/06/Promise%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/" data-id="ck60g95gb00049p1kbblscq5m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/06/Promise%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/" data-id="ck60g95g600029p1kfxmqelqv" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/H5/" rel="tag">H5</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li></ul>
 
     </footer>
   </div>
@@ -198,9 +162,9 @@
 
 
   
-    <article id="post-Promise深入理解" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-移动端文件上传美化-一键上传" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/05/06/Promise%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/" class="article-date">
+    <a href="/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/" class="article-date">
   <time datetime="2018-05-05T16:48:57.000Z" itemprop="datePublished">2018-05-06</time>
 </a>
     
@@ -212,7 +176,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/06/Promise%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">Promise深入理解</a>
+      <a class="article-title" href="/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/">移动端文件上传美化&amp;一键上传</a>
     </h1>
   
 
@@ -220,29 +184,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="什么是Promise"><a href="#什么是Promise" class="headerlink" title="什么是Promise"></a>什么是<strong>Promise</strong></h2><p><strong>Promise</strong>的核心理念是一个异步操作的结果，<strong>Promise</strong>包含两部分</p>
-<ul>
-<li><code>[[PromiseStates]]</code></li>
-<li><code>[[PromiseValue]]</code></li>
-</ul>
-<p><strong>Promise</strong>状态三种可能：</p>
-<ul>
-<li><code>pending</code>: 悬而未决</li>
-<li><code>resolved</code>: 决定</li>
-<li><code>rejected</code>: 拒绝</li>
-</ul>
+        <p>最近项目中文件系统需要适配移动端，发现很多PC端的交互在移动端显得很累赘。</p>
+<p>下面就改造一下<strong>文件上传</strong>，让它变得更加适合移动端。</p>
         
           <p class="article-more-link">
-            <a href="/2018/05/06/Promise%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/#more">Read More</a>
+            <a href="/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/06/Promise%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/" data-id="ck60g95g600029p1kfxmqelqv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/" data-id="ck60g95gb00049p1kbblscq5m" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/H5/" rel="tag">H5</a></li></ul>
 
     </footer>
   </div>
@@ -556,6 +511,113 @@
 
 
   
+    <article id="post-跨域" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/25/%E8%B7%A8%E5%9F%9F/" class="article-date">
+  <time datetime="2017-10-25T13:06:03.000Z" itemprop="datePublished">2017-10-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/javascript/">javascript</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/25/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JavaScript跨域总结与解决办法"><a href="#JavaScript跨域总结与解决办法" class="headerlink" title="JavaScript跨域总结与解决办法"></a>JavaScript跨域总结与解决办法</h1><ul>
+<li>什么是跨域</li>
+<li>document.domain+iframe的设置</li>
+<li>动态创建script</li>
+<li>利用iframe和location.hash</li>
+<li>window.name实现的跨域数据传输</li>
+<li>使用HTML5 postMessage</li>
+<li>利用flash</li>
+</ul>
+<h3 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a>什么是跨域</h3><p>JavaScript出于安全方面的考虑，不允许跨域调用其他页面的对象。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦</p>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>说明</th>
+<th>是否允许通信</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.a.com/a.js" target="_blank" rel="noopener">http://www.a.com/a.js</a> <a href="http://www.a.com/b.js" target="_blank" rel="noopener">http://www.a.com/b.js</a></td>
+<td>同一域名下</td>
+<td>允许</td>
+</tr>
+<tr>
+<td><a href="http://www.a.com/lab/a.js" target="_blank" rel="noopener">http://www.a.com/lab/a.js</a>  <a href="http://www.a.com/script/b.js" target="_blank" rel="noopener">http://www.a.com/script/b.js</a></td>
+<td>同一域名下不同文件夹</td>
+<td>允许</td>
+</tr>
+<tr>
+<td><a href="http://www.a.com:8000/a.js" target="_blank" rel="noopener">http://www.a.com:8000/a.js</a>    <a href="http://www.a.com/b.js" target="_blank" rel="noopener">http://www.a.com/b.js</a></td>
+<td>同一域名，不同端口</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td><a href="http://www.a.com/a.js" target="_blank" rel="noopener">http://www.a.com/a.js</a>  <a href="https://www.a.com/b.js" target="_blank" rel="noopener">https://www.a.com/b.js</a></td>
+<td>同一域名，不同协议</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td><a href="http://www.a.com/a.js" target="_blank" rel="noopener">http://www.a.com/a.js</a> <a href="http://70.32.92.74/b.js" target="_blank" rel="noopener">http://70.32.92.74/b.js</a></td>
+<td>域名和域名对应ip</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td><a href="http://www.a.com/a.js" target="_blank" rel="noopener">http://www.a.com/a.js</a>  <a href="http://script.a.com/b.js" target="_blank" rel="noopener">http://script.a.com/b.js</a></td>
+<td>主域相同，子域不同</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td><a href="http://www.a.com/a.js" target="_blank" rel="noopener">http://www.a.com/a.js</a>  <a href="http://a.com/b.js" target="_blank" rel="noopener">http://a.com/b.js</a></td>
+<td>同一域名，不同二级域名（同上）</td>
+<td>不允许（cookie这种情况下也不允许访问）</td>
+</tr>
+<tr>
+<td><a href="http://www.cnblogs.com/a.js" target="_blank" rel="noopener">http://www.cnblogs.com/a.js</a>    <a href="http://www.a.com/b.js" target="_blank" rel="noopener">http://www.a.com/b.js</a></td>
+<td>不同域名</td>
+<td>不允许</td>
+</tr>
+</tbody>
+</table>
+        
+          <p class="article-more-link">
+            <a href="/2017/10/25/%E8%B7%A8%E5%9F%9F/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/25/%E8%B7%A8%E5%9F%9F/" data-id="ck60g95gt000g9p1k3kzyh3zd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
 
 
   <nav id="page-nav">
@@ -598,7 +660,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li></ul>
     </div>
   </div>
 
@@ -611,11 +673,7 @@
       <ul>
         
           <li>
-            <a href="/2019/11/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/">移动端文件上传美化&amp;一键上传</a>
+            <a href="/2018/05/06/Promise%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">Promise深入理解</a>
           </li>
         
           <li>
@@ -623,11 +681,15 @@
           </li>
         
           <li>
-            <a href="/2018/05/06/Promise%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">Promise深入理解</a>
+            <a href="/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/">移动端文件上传美化&amp;一键上传</a>
           </li>
         
           <li>
             <a href="/2018/05/05/History-API-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/">History API 使用指北</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/25/%E9%AB%98%E6%95%88JavaScript-68%E8%AF%AB/">高效JavaScript-68诫</a>
           </li>
         
       </ul>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-11-27T08:11:17.995Z</updated>
+  <updated>2019-11-27T13:23:43.062Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,69 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2019/11/27/hello-world/"/>
-    <id>http://yoursite.com/2019/11/27/hello-world/</id>
-    <published>2019-11-27T08:11:17.995Z</published>
-    <updated>2019-11-27T08:11:17.995Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>移动端文件上传美化&amp;一键上传</title>
-    <link href="http://yoursite.com/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/"/>
-    <id>http://yoursite.com/2018/05/06/移动端文件上传美化-一键上传/</id>
-    <published>2018-05-05T16:48:57.000Z</published>
-    <updated>2019-11-27T08:11:17.996Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近项目中文件系统需要适配移动端，发现很多PC端的交互在移动端显得很累赘。</p><p>下面就改造一下<strong>文件上传</strong>，让它变得更加适合移动端。</p><a id="more"></a><h3 id="PC端实现方案"><a href="#PC端实现方案" class="headerlink" title="PC端实现方案"></a>PC端实现方案</h3><p>就拿上传文件来说，之前在移动端是<strong>点击上传icon</strong>，弹出一个对话框选择文件，然后通过对话框的按钮进行上传。</p><p>分解起来就是，选择文件和上传文件，其实是两步。但是在移动端，我们点击<code>input[file]</code>会调用原生的文件系统(iOS是选择照片/拍照上传)，<br>百度云的做法是在调用原生的文件系统，选择完要上传的文件，无需用户点击<strong>上传</strong>按钮直接上传。现在我们来学习下百度云的做法。</p><h3 id="美化input控件"><a href="#美化input控件" class="headerlink" title="美化input控件"></a>美化input控件</h3><p>在没有使用插件的原生<code>input[file]</code>是很难看的，上面的PC端上传文件是使用了<a href="https://github.com/kartik-v/bootstrap-fileinput" target="_blank" rel="noopener">file-input</a>组件，<br>所以我们自定义样式之后会显得比较好看。</p><p>但是在移动端我们不使用弹框效果了，所以<code>input[file]</code>也就没必要美化，直接隐藏就好。通过上传按钮调用<code>input[file]</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; HTML</span><br><span class="line">&lt;span class&#x3D;&quot;upload&quot; onclick&#x3D;&quot;chooseFile()&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;file&quot; accept&#x3D;&quot;*&#x2F;*&quot; name&#x3D;&quot;uploadFile&quot; style&#x3D;&quot;display: none; opacity: 0&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; JS</span><br><span class="line">function chooseFile() &#123;</span><br><span class="line">    var fileObj &#x3D; document.getElementsByName(&#39;uploadFile&#39;)[0];</span><br><span class="line">    fileObj.click();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在上面的代码中，我们使用一个上传icon触发<code>input[file]</code>这样文件就选择完毕了</p><h3 id="一键上传"><a href="#一键上传" class="headerlink" title="一键上传"></a>一键上传</h3><p>现在文件选择完成了，我们发现没有办法<strong>上传文件</strong>了，因为<code>input[file]</code>已经被我们隐藏了。</p><p>让我们来转换一下思维方式，为什么还需要第二步上传操作，我们不能选择完成之后直接上传吗？事实证明百度云就是这么做的。</p><p><code>input[file]</code>也是一个普通的<code>input</code>，那我们就能使用它的<code>change</code>事件，这样就把思路捋顺了。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; HTML</span><br><span class="line">&lt;span class&#x3D;&quot;upload&quot; onclick&#x3D;&quot;chooseFile()&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;file&quot; accept&#x3D;&quot;*&#x2F;*&quot; name&#x3D;&quot;uploadFile&quot; onchange&#x3D;&quot;uploadFile()&quot; style&#x3D;&quot;display: none; opacity: 0&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; JS</span><br><span class="line">function chooseFile() &#123;</span><br><span class="line">    var fileObj &#x3D; document.getElementsByName(&#39;uploadFile&#39;)[0];</span><br><span class="line">    fileObj.click();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function uploadFile() &#123;</span><br><span class="line">    var formData &#x3D; new formData();</span><br><span class="line">    var fileObj &#x3D; document.getElementsByName(&#39;uploadFile&#39;)[0].files[0];</span><br><span class="line">    formData.appenf(&#39;file&#39;, fileObj);</span><br><span class="line"></span><br><span class="line">    axios.post(url, formData)</span><br><span class="line">        .then(function (res) &#123;</span><br><span class="line">            &#x2F;&#x2F; success</span><br><span class="line">        &#125;)</span><br><span class="line">        .catch(function () &#123;</span><br><span class="line">            &#x2F;&#x2F; error</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>为<code>input[file]</code>添加一个<code>change</code>事件，就能在我们选择完文件，自动调用相关函数进行上传。<br>在这里我没有使用原生的AJAX，我使用的是<a href="https://github.com/mzabriskie/axios" target="_blank" rel="noopener">axios</a>，感兴趣的话可以自行Google。</p><h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>至此，我们就实现了一个简单移动端的上传文件，还有很多不足，会在后续工作中优化。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近项目中文件系统需要适配移动端，发现很多PC端的交互在移动端显得很累赘。&lt;/p&gt;
-&lt;p&gt;下面就改造一下&lt;strong&gt;文件上传&lt;/strong&gt;，让它变得更加适合移动端。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="H5" scheme="http://yoursite.com/tags/H5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>微信浏览器Bug</title>
-    <link href="http://yoursite.com/2018/05/06/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8Bug/"/>
-    <id>http://yoursite.com/2018/05/06/微信浏览器Bug/</id>
-    <published>2018-05-05T16:48:57.000Z</published>
-    <updated>2019-11-27T08:11:17.996Z</updated>
-    
-    <content type="html"><![CDATA[<p>不是一个笑话，微信浏览器真的有Bug。</p><p>一个我觉得不应该出Bug的地方，它居然有<strong>Bug</strong>，真的很坑。</p><a id="more"></a><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>在微信浏览器中做上传文件的功能，发现iOS微信浏览器正常工作，但是Android微信浏览器<code>input[file]</code>不能触发<code>change</code>事件。</p><h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>出于“自省”，我觉得是我代码写的有问题，我是使用<strong>Vue2</strong>调用的<code>change</code>事件。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type&#x3D;&quot;file&quot; accept&#x3D;&quot;*&#x2F;*&quot; name&#x3D;&quot;file&quot; @change&#x3D;&quot;fileChange()&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure><p>第一反应就是，微信内置浏览器不支持<strong>Vue2</strong>的<code>@change</code>事件。</p><p>然后我就通过原生JS的写法监听<code>change</code>事件：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.getElementsByName(&#39;file&#39;)[0].addEventListener(&#39;change&#39;, fileChange);</span><br></pre></td></tr></table></figure><p>这样修改之后还是不能触发<code>change</code>事件，又改写了另一种原生写法：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type&#x3D;&quot;file&quot; accept&#x3D;&quot;*&#x2F;*&quot; name&#x3D;&quot;file&quot; onchange&#x3D;&quot;fileChange()&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure><p>不出所料，这样写还是没什么效果。</p><p>之后就是疯狂的<strong>Google</strong>，发现也有人遇到类似的问题，但是没有给出实质性的解决方案。</p><h3 id="转机"><a href="#转机" class="headerlink" title="转机"></a>转机</h3><p>发现知乎上有关于<a href="https://www.zhihu.com/question/21452742" target="_blank" rel="noopener">微信内置的浏览器如何上传文件？</a>的讨论。</p><p>也在其中找到了根本的解决原因。</p><p>这位兄台说，<code>accept=&quot;*/*&quot;</code>上传图片，在<strong>6.3.30</strong>版本不能触发<code>change</code>事件了，证明之前是可行。</p><p>微信浏览器团队在升级中引入了<strong>Bug</strong>，从<em>2016-11-14</em>至今也没修复。</p><p>然后我就将我的<code>accept</code>更改为<code>accept=&quot;image/*&quot;</code>果然就可行，鉴定是<strong>Bug</strong>无误。</p><p>但是我不仅要上传图片，任意格式都要支持啊，我果断把<code>accept</code>属性去掉了，测试居然所有类型都能支持上传了。</p><p>当初为什么要手贱写上<code>accept</code>属性，不然就不会搞到崩溃。</p><p>可是，仔细想想如果没有遇到这个<strong>Bug</strong>，也不会了解到微信内置浏览器(X5内核)也会出现这种想不到的<strong>Bug</strong>。</p><h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>谁的程序都会出错，遇到问题就应该一个个的排除，总会找到解决问题的办法。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;不是一个笑话，微信浏览器真的有Bug。&lt;/p&gt;
-&lt;p&gt;一个我觉得不应该出Bug的地方，它居然有&lt;strong&gt;Bug&lt;/strong&gt;，真的很坑。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="微信 input change" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1-input-change/"/>
-    
-  </entry>
   
   <entry>
     <title>Promise深入理解</title>
@@ -106,6 +43,48 @@
     
     
       <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微信浏览器Bug</title>
+    <link href="http://yoursite.com/2018/05/06/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8Bug/"/>
+    <id>http://yoursite.com/2018/05/06/微信浏览器Bug/</id>
+    <published>2018-05-05T16:48:57.000Z</published>
+    <updated>2019-11-27T08:11:17.996Z</updated>
+    
+    <content type="html"><![CDATA[<p>不是一个笑话，微信浏览器真的有Bug。</p><p>一个我觉得不应该出Bug的地方，它居然有<strong>Bug</strong>，真的很坑。</p><a id="more"></a><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>在微信浏览器中做上传文件的功能，发现iOS微信浏览器正常工作，但是Android微信浏览器<code>input[file]</code>不能触发<code>change</code>事件。</p><h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>出于“自省”，我觉得是我代码写的有问题，我是使用<strong>Vue2</strong>调用的<code>change</code>事件。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type&#x3D;&quot;file&quot; accept&#x3D;&quot;*&#x2F;*&quot; name&#x3D;&quot;file&quot; @change&#x3D;&quot;fileChange()&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure><p>第一反应就是，微信内置浏览器不支持<strong>Vue2</strong>的<code>@change</code>事件。</p><p>然后我就通过原生JS的写法监听<code>change</code>事件：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.getElementsByName(&#39;file&#39;)[0].addEventListener(&#39;change&#39;, fileChange);</span><br></pre></td></tr></table></figure><p>这样修改之后还是不能触发<code>change</code>事件，又改写了另一种原生写法：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type&#x3D;&quot;file&quot; accept&#x3D;&quot;*&#x2F;*&quot; name&#x3D;&quot;file&quot; onchange&#x3D;&quot;fileChange()&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure><p>不出所料，这样写还是没什么效果。</p><p>之后就是疯狂的<strong>Google</strong>，发现也有人遇到类似的问题，但是没有给出实质性的解决方案。</p><h3 id="转机"><a href="#转机" class="headerlink" title="转机"></a>转机</h3><p>发现知乎上有关于<a href="https://www.zhihu.com/question/21452742" target="_blank" rel="noopener">微信内置的浏览器如何上传文件？</a>的讨论。</p><p>也在其中找到了根本的解决原因。</p><p>这位兄台说，<code>accept=&quot;*/*&quot;</code>上传图片，在<strong>6.3.30</strong>版本不能触发<code>change</code>事件了，证明之前是可行。</p><p>微信浏览器团队在升级中引入了<strong>Bug</strong>，从<em>2016-11-14</em>至今也没修复。</p><p>然后我就将我的<code>accept</code>更改为<code>accept=&quot;image/*&quot;</code>果然就可行，鉴定是<strong>Bug</strong>无误。</p><p>但是我不仅要上传图片，任意格式都要支持啊，我果断把<code>accept</code>属性去掉了，测试居然所有类型都能支持上传了。</p><p>当初为什么要手贱写上<code>accept</code>属性，不然就不会搞到崩溃。</p><p>可是，仔细想想如果没有遇到这个<strong>Bug</strong>，也不会了解到微信内置浏览器(X5内核)也会出现这种想不到的<strong>Bug</strong>。</p><h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>谁的程序都会出错，遇到问题就应该一个个的排除，总会找到解决问题的办法。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;不是一个笑话，微信浏览器真的有Bug。&lt;/p&gt;
+&lt;p&gt;一个我觉得不应该出Bug的地方，它居然有&lt;strong&gt;Bug&lt;/strong&gt;，真的很坑。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="微信 input change" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1-input-change/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>移动端文件上传美化&amp;一键上传</title>
+    <link href="http://yoursite.com/2018/05/06/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BE%8E%E5%8C%96-%E4%B8%80%E9%94%AE%E4%B8%8A%E4%BC%A0/"/>
+    <id>http://yoursite.com/2018/05/06/移动端文件上传美化-一键上传/</id>
+    <published>2018-05-05T16:48:57.000Z</published>
+    <updated>2019-11-27T08:11:17.996Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近项目中文件系统需要适配移动端，发现很多PC端的交互在移动端显得很累赘。</p><p>下面就改造一下<strong>文件上传</strong>，让它变得更加适合移动端。</p><a id="more"></a><h3 id="PC端实现方案"><a href="#PC端实现方案" class="headerlink" title="PC端实现方案"></a>PC端实现方案</h3><p>就拿上传文件来说，之前在移动端是<strong>点击上传icon</strong>，弹出一个对话框选择文件，然后通过对话框的按钮进行上传。</p><p>分解起来就是，选择文件和上传文件，其实是两步。但是在移动端，我们点击<code>input[file]</code>会调用原生的文件系统(iOS是选择照片/拍照上传)，<br>百度云的做法是在调用原生的文件系统，选择完要上传的文件，无需用户点击<strong>上传</strong>按钮直接上传。现在我们来学习下百度云的做法。</p><h3 id="美化input控件"><a href="#美化input控件" class="headerlink" title="美化input控件"></a>美化input控件</h3><p>在没有使用插件的原生<code>input[file]</code>是很难看的，上面的PC端上传文件是使用了<a href="https://github.com/kartik-v/bootstrap-fileinput" target="_blank" rel="noopener">file-input</a>组件，<br>所以我们自定义样式之后会显得比较好看。</p><p>但是在移动端我们不使用弹框效果了，所以<code>input[file]</code>也就没必要美化，直接隐藏就好。通过上传按钮调用<code>input[file]</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; HTML</span><br><span class="line">&lt;span class&#x3D;&quot;upload&quot; onclick&#x3D;&quot;chooseFile()&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;file&quot; accept&#x3D;&quot;*&#x2F;*&quot; name&#x3D;&quot;uploadFile&quot; style&#x3D;&quot;display: none; opacity: 0&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; JS</span><br><span class="line">function chooseFile() &#123;</span><br><span class="line">    var fileObj &#x3D; document.getElementsByName(&#39;uploadFile&#39;)[0];</span><br><span class="line">    fileObj.click();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在上面的代码中，我们使用一个上传icon触发<code>input[file]</code>这样文件就选择完毕了</p><h3 id="一键上传"><a href="#一键上传" class="headerlink" title="一键上传"></a>一键上传</h3><p>现在文件选择完成了，我们发现没有办法<strong>上传文件</strong>了，因为<code>input[file]</code>已经被我们隐藏了。</p><p>让我们来转换一下思维方式，为什么还需要第二步上传操作，我们不能选择完成之后直接上传吗？事实证明百度云就是这么做的。</p><p><code>input[file]</code>也是一个普通的<code>input</code>，那我们就能使用它的<code>change</code>事件，这样就把思路捋顺了。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; HTML</span><br><span class="line">&lt;span class&#x3D;&quot;upload&quot; onclick&#x3D;&quot;chooseFile()&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;file&quot; accept&#x3D;&quot;*&#x2F;*&quot; name&#x3D;&quot;uploadFile&quot; onchange&#x3D;&quot;uploadFile()&quot; style&#x3D;&quot;display: none; opacity: 0&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; JS</span><br><span class="line">function chooseFile() &#123;</span><br><span class="line">    var fileObj &#x3D; document.getElementsByName(&#39;uploadFile&#39;)[0];</span><br><span class="line">    fileObj.click();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function uploadFile() &#123;</span><br><span class="line">    var formData &#x3D; new formData();</span><br><span class="line">    var fileObj &#x3D; document.getElementsByName(&#39;uploadFile&#39;)[0].files[0];</span><br><span class="line">    formData.appenf(&#39;file&#39;, fileObj);</span><br><span class="line"></span><br><span class="line">    axios.post(url, formData)</span><br><span class="line">        .then(function (res) &#123;</span><br><span class="line">            &#x2F;&#x2F; success</span><br><span class="line">        &#125;)</span><br><span class="line">        .catch(function () &#123;</span><br><span class="line">            &#x2F;&#x2F; error</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>为<code>input[file]</code>添加一个<code>change</code>事件，就能在我们选择完文件，自动调用相关函数进行上传。<br>在这里我没有使用原生的AJAX，我使用的是<a href="https://github.com/mzabriskie/axios" target="_blank" rel="noopener">axios</a>，感兴趣的话可以自行Google。</p><h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>至此，我们就实现了一个简单移动端的上传文件，还有很多不足，会在后续工作中优化。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近项目中文件系统需要适配移动端，发现很多PC端的交互在移动端显得很累赘。&lt;/p&gt;
+&lt;p&gt;下面就改造一下&lt;strong&gt;文件上传&lt;/strong&gt;，让它变得更加适合移动端。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="H5" scheme="http://yoursite.com/tags/H5/"/>
     
   </entry>
   
