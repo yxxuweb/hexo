@@ -1,7 +1,8 @@
 ---
 title: Promise深入理解
 date: 2018-05-05 24:48:57
-tags: javascript
+tags: JavaScript
+categories: JavaScript
 ---
 
 ## 什么是**Promise**

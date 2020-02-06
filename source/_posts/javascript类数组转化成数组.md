@@ -1,8 +1,8 @@
 ---
 title: javascript类数组(ArrayLike)转化成数组
 date: 2017-10-18T21:58:27.000Z
-tags: javascript
-categories: javascript 
+tags: JavaScript
+categories: JavaScript 
 ---
 
 # javascript类数组转化成数组

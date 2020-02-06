@@ -1,8 +1,8 @@
 ---
 title: 读 《深入理解javascript原型和闭包》总结（一）
 date: 2018-01-10 17:52:32
-tags: javascript
-categories: javascript
+tags: JavaScript
+categories: JavaScript
 ---
 
 ### 一切都是对象

@@ -1,8 +1,8 @@
 ---
 title: JS红宝书·读书笔记
 date: 2018-04-25 13:53:57
-tags: javascript
-categories: javascript
+tags: JavaScript
+categories: JavaScript
 ---
 
 花了半个多月的时间，终于又把“JS红宝书”又撸了一遍。
